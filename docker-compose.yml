@@ -33,7 +33,7 @@ x-backend-common: &backend-common
 services:
   postgres:
     image: postgres:15-alpine
-    container_name: stl-postgres
+    container_name: nckl-postgres
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
@@ -51,7 +51,7 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: stl-redis
+    container_name: nckl-redis
     restart: unless-stopped
     ports:
       - "6379:6379"
@@ -63,26 +63,26 @@ services:
 
   backend:
     <<: *backend-common
-    container_name: stl-backend
+    container_name: nckl-backend
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
 
   celery-worker:
     <<: *backend-common
-    container_name: stl-celery-worker
+    container_name: nckl-celery-worker
     command: celery -A config worker -l info
 
   celery-beat:
     <<: *backend-common
-    container_name: stl-celery-beat
+    container_name: nckl-celery-beat
     command: celery -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: stl-frontend
+    container_name: nckl-frontend
     restart: unless-stopped
     command: npm run dev
     volumes:

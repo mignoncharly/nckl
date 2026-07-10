@@ -1,0 +1,13 @@
+[Unit]
+Description=NCKL Redis
+After=network.target
+
+[Service]
+Type=notify
+User=mignon
+ExecStart=/usr/bin/redis-server /home/mignon/nckl/deploy/redis-nckl.conf --supervised systemd
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

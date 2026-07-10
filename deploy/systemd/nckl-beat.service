@@ -1,0 +1,16 @@
+[Unit]
+Description=NCKL Celery Beat
+After=network.target postgresql.service nckl-redis.service
+Wants=nckl-redis.service
+
+[Service]
+Type=simple
+User=mignon
+WorkingDirectory=/home/mignon/nckl/backend
+Environment=DJANGO_SETTINGS_MODULE=config.settings.production
+ExecStart=/home/mignon/nckl/backend/.venv/bin/celery -A config beat --loglevel=INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

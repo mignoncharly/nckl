@@ -487,3 +487,7 @@ Recommendation.
 7. Add shopping-assistance workflow fields and admin status handling.
 8. Replace destinations and route/status labels.
 9. Add tests for route-specific rules and customer/admin permissions.
+
+## Implementation update - 2026-07-10
+
+Implemented NCKL runtime decoupling, centralized configuration, configurable routes/items/locations/schedules, customer request workflow fields, admin-protected APIs, upload validation, NCKL branding/content updates, deployment templates, and local regression checks. See `docs/implementation/README.md` for current implementation status.

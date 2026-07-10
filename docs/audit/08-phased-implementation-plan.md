@@ -372,3 +372,7 @@ Additional acceptance criteria:
 - Image-derived services and conditions are represented without inventing prices or legal claims.
 - Drop-off location details match confirmed owner-approved text.
 - Conflicting contacts/transit times have explicit owner decisions before launch.
+
+## Implementation update - 2026-07-10
+
+Implemented NCKL runtime decoupling, centralized configuration, configurable routes/items/locations/schedules, customer request workflow fields, admin-protected APIs, upload validation, NCKL branding/content updates, deployment templates, and local regression checks. See `docs/implementation/README.md` for current implementation status.

@@ -75,3 +75,7 @@ Detailed extraction is in [13-image-requirements-analysis.md](13-image-requireme
 Recommendation.
 
 The next implementation phase should not merely rebrand SAHA. It should preserve the proven logistics platform but adapt it to NCKL's bidirectional Germany/Cameroon/Europe workflow, shopping-assistance services, admin-managed drop-off locations, richer item acceptance rules, and English/French content requirements. Prices remain unknown and must not be invented.
+
+## Implementation update - 2026-07-10
+
+Implemented NCKL runtime decoupling, centralized configuration, configurable routes/items/locations/schedules, customer request workflow fields, admin-protected APIs, upload validation, NCKL branding/content updates, deployment templates, and local regression checks. See `docs/implementation/README.md` for current implementation status.

@@ -22,7 +22,7 @@ if [[ -n "$staged_files" ]]; then
     fail=1
   fi
 
-  diff_targets=$(echo "$staged_files" | grep -v -E '(^|/)(\.env\.example|scripts/check-repo-safety\.sh|backend/config/settings/base\.py|frontend/package-lock\.json|docs/audit/.*|docs/implementation/.*)$' || true)
+  diff_targets=$(echo "$staged_files" | grep -v -E '(^|/)(\.env\.example|scripts/check-repo-safety\.sh|backend/config/settings/base\.py|frontend/package-lock\.json|deploy/\.secrets\.example\.json|deploy/redis-nckl\.conf\.example|docs/audit/.*|docs/implementation/.*)$' || true)
   staged_secret_hits=""
   if [[ -n "$diff_targets" ]]; then
     # shellcheck disable=SC2086 # repository paths do not contain spaces.

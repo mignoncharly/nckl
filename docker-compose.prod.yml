@@ -51,7 +51,7 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: stl-nginx
+    container_name: nckl-nginx
     restart: always
     ports:
       - "80:80"
@@ -67,7 +67,7 @@ services:
 
   certbot:
     image: certbot/certbot
-    container_name: stl-certbot
+    container_name: nckl-certbot
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot

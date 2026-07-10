@@ -78,3 +78,7 @@ This roadmap lists files/directories that were inspected directly or whose role 
 | `backend/apps/contact/*` or new `locations` app | Contact form only | Drop-off locations should be structured/admin-managed | Add model/API/admin UI if approved | Images 3, 5, 7 | D/E |
 | `frontend/src/components/public/*` | Public cards/hero/status UI | NCKL route and item-condition cards | Reuse components but replace copy/content | Image-driven public content | C/F |
 | `backend/apps/pricing/*` | Price rules | No prices visible in images | Keep admin-managed; do not seed fake prices | Avoid invented business data | C/D |
+
+## Implementation update - 2026-07-10
+
+Implemented NCKL runtime decoupling, centralized configuration, configurable routes/items/locations/schedules, customer request workflow fields, admin-protected APIs, upload validation, NCKL branding/content updates, deployment templates, and local regression checks. See `docs/implementation/README.md` for current implementation status.

@@ -86,3 +86,7 @@ Before implementation is accepted:
 - Shopping assistance from Europe to Cameroon is either implemented as a structured request flow or intentionally handled as WhatsApp-only, based on owner decision.
 - English/French/German language support matches the owner-approved launch scope.
 - TikTok `@nckllogisticsservices` is included only if approved as an official social link.
+
+## Implementation update - 2026-07-10
+
+Implemented NCKL runtime decoupling, centralized configuration, configurable routes/items/locations/schedules, customer request workflow fields, admin-protected APIs, upload validation, NCKL branding/content updates, deployment templates, and local regression checks. See `docs/implementation/README.md` for current implementation status.

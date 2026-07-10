@@ -1,7 +1,7 @@
 .PHONY: help build up down logs shell-backend shell-db migrate createsuperuser seed pwa-install
 
 help:
-	@echo "STL Transport & Logistics – available commands:"
+	@echo "NCKL Transport & Logistics – available commands:"
 	@echo "  make build            Build all containers"
 	@echo "  make up               Start all services"
 	@echo "  make down             Stop all services"
@@ -29,7 +29,7 @@ shell-backend:
 	docker compose exec backend bash
 
 shell-db:
-	docker compose exec postgres psql -U stl_user -d stl_db
+	docker compose exec postgres psql -U nckl_user -d nckl_db
 
 migrate:
 	docker compose exec backend python manage.py migrate

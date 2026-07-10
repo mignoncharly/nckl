@@ -1,0 +1,10 @@
+# NCKL dedicated Redis instance - TEMPLATE.
+# Copy to deploy/redis-nckl.conf on the server and set a real requirepass before production use.
+bind 127.0.0.1
+port 6384
+supervised systemd
+dir /home/mignon/nckl/deploy/redis-data
+dbfilename dump-nckl.rdb
+pidfile /home/mignon/nckl/deploy/redis-data/redis-nckl.pid
+appendonly yes
+# requirepass REPLACE_WITH_NCKL_REDIS_PASSWORD

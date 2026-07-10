@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# SAHA-STL standalone deployment — root setup.
-# Run with:  sudo bash /home/mignon/saha/deploy/root_setup.sh
+# NCKL standalone deployment — root setup.
+# Run with:  sudo bash /home/mignon/nckl/deploy/root_setup.sh
 #
 # Idempotent: safe to re-run. Performs only the steps that need root, and drops
 # to user 'mignon' for Django management commands.
@@ -9,12 +9,12 @@
 set -euo pipefail
 
 APP_USER=mignon
-APP_DIR=/home/mignon/saha
+APP_DIR=/home/mignon/nckl
 BACKEND=$APP_DIR/backend
 VENV=$BACKEND/.venv/bin
 SECRETS=$APP_DIR/deploy/.secrets.json
-PGDB=saha_db
-PGUSER=saha_user
+PGDB=nckl_db
+PGUSER=nckl_user
 
 if [[ $EUID -ne 0 ]]; then echo "Must run as root (use sudo)."; exit 1; fi
 command -v jq >/dev/null 2>&1 || true
@@ -44,14 +44,14 @@ sudo -u postgres psql -v ON_ERROR_STOP=1 -c "GRANT ALL PRIVILEGES ON DATABASE $P
 echo "   -> database $PGDB owned by $PGUSER ready"
 
 echo "==================================================================="
-echo " 2/7  Redis: dedicated saha-redis instance (port 6383)"
+echo " 2/7  Redis: dedicated nckl-redis instance (port 6383)"
 echo "==================================================================="
-install -m 644 "$APP_DIR/deploy/systemd/saha-redis.service" /etc/systemd/system/saha-redis.service
+install -m 644 "$APP_DIR/deploy/systemd/nckl-redis.service" /etc/systemd/system/nckl-redis.service
 chown -R $APP_USER:$APP_USER "$APP_DIR/deploy/redis-data"
 systemctl daemon-reload
-systemctl enable --now saha-redis.service
+systemctl enable --now nckl-redis.service
 sleep 2
-systemctl is-active --quiet saha-redis && echo "   -> saha-redis active" || { echo "   !! saha-redis failed"; journalctl -u saha-redis -n 20 --no-pager; exit 1; }
+systemctl is-active --quiet nckl-redis && echo "   -> nckl-redis active" || { echo "   !! nckl-redis failed"; journalctl -u nckl-redis -n 20 --no-pager; exit 1; }
 
 echo "==================================================================="
 echo " 3/7  Django: migrate, collectstatic, seed, superuser (as $APP_USER)"
@@ -61,12 +61,12 @@ RUN="sudo -u $APP_USER env DJANGO_SETTINGS_MODULE=config.settings.production"
 ( cd "$BACKEND" && $RUN "$VENV/python" manage.py collectstatic --noinput )
 echo "   -> seeding initial data (best-effort)"
 ( cd "$BACKEND" && $RUN "$VENV/python" manage.py seed_initial_data ) || echo "   (seed skipped/failed — non-fatal)"
-echo "   -> ensuring admin superuser (admin@gestionatech.de)"
+echo "   -> ensuring admin superuser (NCKL_ADMIN_EMAIL)"
 ( cd "$BACKEND" && $RUN ADMIN_PW="$ADMIN_PASSWORD" "$VENV/python" manage.py shell <<'PYEOF'
 import os
 from django.contrib.auth import get_user_model
 U = get_user_model()
-email = "admin@gestionatech.de"
+email = "NCKL_ADMIN_EMAIL"
 pw = os.environ["ADMIN_PW"]
 u, created = U.objects.get_or_create(email=email, defaults={"role": "admin", "is_staff": True, "is_superuser": True, "is_active": True})
 u.is_staff = True; u.is_superuser = True; u.is_active = True
@@ -81,17 +81,17 @@ PYEOF
 echo "==================================================================="
 echo " 4/7  systemd: install app services"
 echo "==================================================================="
-for svc in saha-api saha-worker saha-beat saha-frontend; do
+for svc in nckl-api nckl-worker nckl-beat nckl-frontend; do
   install -m 644 "$APP_DIR/deploy/systemd/$svc.service" "/etc/systemd/system/$svc.service"
 done
 systemctl daemon-reload
-systemctl enable --now saha-api.service saha-worker.service saha-beat.service saha-frontend.service
+systemctl enable --now nckl-api.service nckl-worker.service nckl-beat.service nckl-frontend.service
 
 echo "==================================================================="
 echo " 5/7  nginx: install site configs (HTTP)"
 echo "==================================================================="
 mkdir -p /etc/nginx/sites-available /etc/nginx/sites-enabled
-for site in saha-stl.docufisc.de api-saha.docufisc.de; do
+for site in APPROVED_NCKL_FRONTEND_DOMAIN APPROVED_NCKL_API_DOMAIN; do
   install -m 644 "$APP_DIR/deploy/nginx/$site" "/etc/nginx/sites-available/$site"
   ln -sf "/etc/nginx/sites-available/$site" "/etc/nginx/sites-enabled/$site"
 done
@@ -103,7 +103,7 @@ echo "==================================================================="
 echo " 6/7  Service status"
 echo "==================================================================="
 sleep 3
-for svc in saha-redis saha-api saha-worker saha-beat saha-frontend; do
+for svc in nckl-redis nckl-api nckl-worker nckl-beat nckl-frontend; do
   printf "   %-18s %s\n" "$svc" "$(systemctl is-active $svc.service)"
 done
 
@@ -116,5 +116,5 @@ echo -n "   Front (127.0.0.1:3030/)     -> "; curl -s -o /dev/null -w "%{http_co
 echo
 echo "==================================================================="
 echo " DONE. Next (after DNS A-records point to 82.165.94.233):"
-echo "   sudo certbot --nginx -d saha-stl.docufisc.de -d api-saha.docufisc.de"
+echo "   sudo certbot --nginx -d APPROVED_NCKL_FRONTEND_DOMAIN -d APPROVED_NCKL_API_DOMAIN"
 echo "==================================================================="

@@ -1,0 +1,16 @@
+[Unit]
+Description=NCKL Django API (gunicorn)
+After=network.target postgresql.service nckl-redis.service
+Wants=nckl-redis.service
+
+[Service]
+Type=simple
+User=mignon
+WorkingDirectory=/home/mignon/nckl/backend
+Environment=DJANGO_SETTINGS_MODULE=config.settings.production
+ExecStart=/home/mignon/nckl/backend/.venv/bin/gunicorn config.wsgi:application --bind 127.0.0.1:8040 --workers 3 --timeout 120
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

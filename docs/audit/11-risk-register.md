@@ -19,3 +19,6 @@
 | R15 | Docker files confuse operators | Medium | Medium | Docker compose and Makefile present | Mark local-only/remove from NCKL prod docs | Keep local Docker? |
 | R16 | Image requirements cannot be extracted in current tool environment | Medium | High | Viewer/OCR blocked | Provide text or approved extraction path | Yes |
 
+## Implementation update - 2026-07-10
+
+Implemented NCKL runtime decoupling, centralized configuration, configurable routes/items/locations/schedules, customer request workflow fields, admin-protected APIs, upload validation, NCKL branding/content updates, deployment templates, and local regression checks. See `docs/implementation/README.md` for current implementation status.

@@ -72,3 +72,6 @@ Reuse the proven architecture and domain logic, but first isolate and decouple:
 11. [11-risk-register.md](11-risk-register.md)
 12. [12-acceptance-criteria.md](12-acceptance-criteria.md)
 
+## Implementation update - 2026-07-10
+
+Implemented NCKL runtime decoupling, centralized configuration, configurable routes/items/locations/schedules, customer request workflow fields, admin-protected APIs, upload validation, NCKL branding/content updates, deployment templates, and local regression checks. See `docs/implementation/README.md` for current implementation status.

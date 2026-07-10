@@ -1,25 +1,21 @@
-# SAHA Transport & Logistics (STL) – Webapp
+# NCKL Logistics Services Platform
 
-Transport & logistics web app (FR default / DE): customers request shipments,
-track them by reference, view pricing and pickup/loading schedules, and receive
-notifications; admins manage everything through an admin area.
+Independent NCKL logistics web application based on the proven Django/DRF and Next.js logistics stack.
 
-> ⚠️ **Production is systemd-managed on a single VPS — not Docker.**
-> `/home/mignon/saha` is a **live server**. Do **not** run `next dev`,
-> `manage.py runserver`, `docker compose up`, or migrations against it — they
-> collide with the running services. Read **`AGENTS.md`** before working here.
+## Safety
 
-## Docs
-- `AGENTS.md` — onboarding + production-safety rules (read first)
-- `docs/architecture.md` — how the system fits together
-- `docs/deployment.md` — production (systemd) deploy + provisioning
-- `docs/release-checklist.md` — the routine release procedure
-- `docs/security.md` — auth, data-exposure, secrets, rollback
-- `docs/api-contract.md` — public + admin endpoints, status machine
-- `docs/mvp-roadmap.md` — status + what's next
+This repository is for NCKL only. It must not reuse SAHA production databases, Redis instances, services, domains, media, logs, backups, SMTP credentials, or deployment paths. Requirement images under `docs/nckl_*.jpeg` are local input material and are ignored unless explicitly approved for commit.
 
-## Local development (Docker, optional)
-The `docker-compose*.yml` files are for **local/dev only** and don't reflect
-production. Copy `.env.example` → `.env`, then build/start with Docker Compose,
-`migrate`, `createsuperuser`, and `seed_initial_data`. The frontend dev server
-and Django admin run on localhost. See `docs/deployment.md` for details.
+## Stack
+
+- Backend: Django 4.2, Django REST Framework, PostgreSQL, Redis, Celery, Gunicorn.
+- Frontend: Next.js 14 App Router, React, TypeScript, Tailwind CSS.
+- Runtime templates: NCKL-prefixed systemd, Nginx, Redis, and backup configuration under `deploy/`.
+
+## Configuration
+
+Copy `.env.example` to `.env` and provide NCKL-owned values before running any production process. Unknown business values such as final domain, pricing, legal text, payment terms, and SMTP credentials are intentionally not hardcoded.
+
+## Documentation
+
+Audit and implementation documentation lives in `docs/audit/` and `docs/implementation/`.

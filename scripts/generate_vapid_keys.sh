@@ -10,7 +10,7 @@
 #   VAPID_PRIVATE_KEY -> base64url(32-byte private scalar)        ~43 chars
 #   VAPID_PUBLIC_KEY  -> base64url(65-byte uncompressed point)    ~87 chars
 #
-# Copy the two printed lines into your .env, then restart saha-api/worker.
+# Copy the two printed lines into your .env, then restart nckl-api/worker.
 python3 -c "
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives import serialization
