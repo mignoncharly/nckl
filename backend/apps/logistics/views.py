@@ -1,0 +1,232 @@
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
+from django.shortcuts import get_object_or_404
+from .models import TransportRequest, RequestStatusEvent, RequestComment
+from .serializers import (
+    TransportRequestListSerializer,
+    TransportRequestDetailSerializer,
+    TransportRequestCreateSerializer,
+    TransportRequestStatusSerializer,
+    PublicTransportRequestTrackingSerializer,
+    CustomerTransportRequestDetailSerializer,
+    RequestStatusEventSerializer,
+    RequestCommentSerializer,
+)
+from .status import ALLOWED_STATUS_TRANSITIONS
+from apps.customers.matching import resolve_customer
+from apps.core.permissions import IsStaffOrAdmin
+from apps.core.pagination import StandardPagination
+import csv
+from django.http import HttpResponse
+from rest_framework.views import APIView
+from apps.notifications.tasks import send_status_change_notification
+from apps.core.throttles import PublicAnonRateThrottle
+from rest_framework.permissions import IsAuthenticated
+from .filters import TransportRequestFilter
+from django.utils.translation import gettext as _
+
+class PublicTransportRequestCreateView(generics.CreateAPIView):
+    throttle_classes = [PublicAnonRateThrottle]
+    serializer_class = TransportRequestCreateSerializer
+    permission_classes = []
+    parser_classes = (MultiPartParser, FormParser)
+
+    def create(self, request, *args, **kwargs):
+        # Validate consent manually
+        consent = request.data.get('consent')
+        if consent != 'true' and consent != True:
+            return Response(
+                {'consent': [_('You must agree to be contacted.')]},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        # Extract customer data
+        full_name = request.data.get('full_name', '').strip()
+        phone = request.data.get('phone', '').strip()
+        whatsapp_number = request.data.get('whatsapp_number', phone).strip()
+        email = request.data.get('email', '').strip()
+
+        if not full_name:
+            return Response({'full_name': [_('This field is required.')]}, status=status.HTTP_400_BAD_REQUEST)
+        if not phone:
+            return Response({'phone': [_('This field is required.')]}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Resolve the customer: normalized-phone matching, authenticated users
+        # attach to their own profile, and anonymous submissions never overwrite
+        # an existing customer's identity (only fill blanks).
+        customer = resolve_customer(
+            user=request.user,
+            full_name=full_name,
+            phone=phone,
+            whatsapp_number=whatsapp_number,
+            email=email,
+            language=request.LANGUAGE_CODE,
+        )
+
+        # Now proceed with standard creation. The reference code is assigned
+        # (race-safe, with retry) inside the serializer's create(), so we read it
+        # back off the saved instance for the response.
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer, customer=customer)
+        ref = serializer.instance.reference_code
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            {**serializer.data, 'reference_code': ref},
+            status=status.HTTP_201_CREATED,
+            headers=headers
+        )
+
+    def perform_create(self, serializer, customer=None):
+        # Photos and the reference code are persisted by the serializer's
+        # create(); we only need to attach the customer here.
+        return serializer.save(customer=customer)
+
+class PublicTransportRequestDetailView(generics.RetrieveAPIView):
+    # Anonymous tracking by reference code. Uses the minimal privacy-safe
+    # serializer so a leaked/guessed reference never exposes customer PII,
+    # addresses, internal notes, prices, or photos.
+    queryset = TransportRequest.objects.select_related('service_type', 'destination_city')
+    serializer_class = PublicTransportRequestTrackingSerializer
+    permission_classes = []
+    lookup_field = 'reference_code'
+    lookup_url_kwarg = 'reference_code'
+
+class AdminTransportRequestListView(generics.ListAPIView):
+    serializer_class = TransportRequestListSerializer
+    permission_classes = [permissions.IsAuthenticated, IsStaffOrAdmin]
+    pagination_class = StandardPagination
+    filterset_class = TransportRequestFilter
+    search_fields = ['reference_code', 'customer__full_name', 'pickup_city']
+    ordering_fields = ['created_at', 'preferred_pickup_date', 'status']
+
+    def get_queryset(self):
+        return TransportRequest.objects.select_related('customer', 'destination_city').all()
+
+class AdminTransportRequestDetailView(generics.RetrieveUpdateAPIView):
+    queryset = TransportRequest.objects.all()
+    serializer_class = TransportRequestDetailSerializer
+    permission_classes = [permissions.IsAuthenticated, IsStaffOrAdmin]
+
+class AdminTransportRequestStatusUpdateView(generics.UpdateAPIView):
+    serializer_class = TransportRequestStatusSerializer
+    permission_classes = [permissions.IsAuthenticated, IsStaffOrAdmin]
+    queryset = TransportRequest.objects.all()
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new_status = serializer.validated_data['status']
+        allowed = ALLOWED_STATUS_TRANSITIONS.get(instance.status, [])
+        if new_status not in allowed:
+            return Response(
+                {'detail': _('Transition from %(current)s to %(new)s is not allowed.') % {
+                    'current': instance.status,
+                    'new': new_status,
+                }},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        old_status = instance.status
+        note = serializer.validated_data.get('internal_notes', '')
+        instance.status = new_status
+        if note:
+            instance.internal_notes = note
+        instance.save()
+        # Persist the transition for the customer-facing history.
+        RequestStatusEvent.objects.create(
+            request=instance, from_status=old_status, to_status=new_status,
+            actor=request.user if request.user.is_authenticated else None, note=note,
+        )
+        # Trigger push notification (async)
+        send_status_change_notification.delay(instance.id)
+        return Response(TransportRequestDetailSerializer(instance).data)
+    
+
+class AdminTransportRequestExportCSVView(AdminTransportRequestListView):
+    pagination_class = None
+
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="requests.csv"'
+        writer = csv.writer(response)
+        writer.writerow([
+            _('Reference'), _('Customer'), _('Phone'), _('Pickup city'),
+            _('Destination'), _('Status'), _('Created at'),
+        ])
+        qs = self.filter_queryset(self.get_queryset())
+        for req in qs:
+            writer.writerow([
+                req.reference_code,
+                req.customer.full_name if req.customer else '',
+                req.customer.phone if req.customer else '',
+                req.pickup_city,
+                req.destination_city.name if req.destination_city else '',
+                req.get_status_display(),
+                req.created_at.strftime('%Y-%m-%d %H:%M'),
+            ])
+        return response
+    
+
+class CustomerRequestListView(generics.ListAPIView):
+    serializer_class = TransportRequestListSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        customer = getattr(self.request.user, 'customer_profile', None)
+        if not customer:
+            return TransportRequest.objects.none()
+        return TransportRequest.objects.filter(customer=customer)
+
+
+class CustomerRequestDetailView(generics.RetrieveAPIView):
+    # Full detail of the authenticated customer's OWN request. The queryset is
+    # scoped to their customer profile, so requesting someone else's reference
+    # returns 404 (not their data) rather than leaking it.
+    serializer_class = CustomerTransportRequestDetailSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'reference_code'
+    lookup_url_kwarg = 'reference_code'
+
+    def get_queryset(self):
+        customer = getattr(self.request.user, 'customer_profile', None)
+        if not customer:
+            return TransportRequest.objects.none()
+        return TransportRequest.objects.select_related(
+            'service_type', 'destination_city'
+        ).filter(customer=customer)
+
+
+class CustomerRequestStatusHistoryView(generics.ListAPIView):
+    # Status-change history for the authenticated customer's OWN request.
+    serializer_class = RequestStatusEventSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        customer = getattr(self.request.user, 'customer_profile', None)
+        if not customer:
+            return RequestStatusEvent.objects.none()
+        return RequestStatusEvent.objects.filter(
+            request__reference_code=self.kwargs['reference_code'],
+            request__customer=customer,
+        ).select_related('actor')
+
+
+class CustomerRequestCommentView(generics.ListCreateAPIView):
+    # The owner's comment thread on their own request: reads/writes only
+    # non-internal comments. 404 if the request isn't theirs.
+    serializer_class = RequestCommentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def _request_obj(self):
+        customer = getattr(self.request.user, 'customer_profile', None)
+        return get_object_or_404(
+            TransportRequest, reference_code=self.kwargs['reference_code'],
+            customer=customer if customer else None,
+        )
+
+    def get_queryset(self):
+        return self._request_obj().comments.filter(is_internal=False).select_related('author')
+
+    def perform_create(self, serializer):
+        serializer.save(request=self._request_obj(), author=self.request.user, is_internal=False)

@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-brand-light text-brand-dark antialiased;
+  }
+  h1, h2, h3 {
+    @apply font-display font-bold tracking-tight;
+  }
+  /* Accessible, visible focus ring for keyboard users across the app. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-blue ring-offset-2 ring-offset-white rounded-sm;
+  }
+}
+
+@layer components {
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply btn bg-brand-red text-white shadow-sm hover:bg-red-700 focus-visible:ring-brand-red;
+  }
+  .btn-secondary {
+    @apply btn border border-brand-gold bg-white text-brand-gold shadow-sm hover:bg-brand-gold/10 focus-visible:ring-brand-gold;
+  }
+  .btn-navy {
+    @apply btn bg-brand-blue text-white shadow-sm hover:bg-navy-800 focus-visible:ring-brand-blue;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-gray-700 hover:bg-gray-100 focus-visible:ring-gray-400;
+  }
+  .btn-danger {
+    @apply btn bg-red-600 text-white shadow-sm hover:bg-red-700 focus-visible:ring-red-600;
+  }
+  .btn-whatsapp {
+    @apply btn bg-green-500 text-white shadow-sm hover:bg-green-600 focus-visible:ring-green-500;
+  }
+
+  /* Surfaces */
+  .card {
+    @apply rounded-2xl border border-gray-100 bg-white p-6 shadow-card transition-shadow hover:shadow-soft;
+  }
+  .card-flat {
+    @apply rounded-2xl border border-gray-100 bg-white p-6;
+  }
+
+  /* Forms */
+  .label {
+    @apply block text-sm font-medium text-gray-700 mb-1.5;
+  }
+  .input {
+    @apply w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 shadow-sm transition-colors focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/30 disabled:bg-gray-50;
+  }
+  .input-error {
+    @apply border-red-400 focus:border-red-500 focus:ring-red-500/30;
+  }
+  .field-error {
+    @apply mt-1.5 text-sm text-red-600;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  /* Layout helpers */
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Homepage hero shipment announcement (scrolling ticker)
+ *
+ * Self-contained: the scrolling track is positioned absolutely so its
+ * (intentionally very wide) nowrap content cannot contribute to the hero
+ * grid column's intrinsic width. Without this, the wide track would inflate
+ * the column's automatic minimum size and stretch the whole hero past the
+ * viewport. The wrapper therefore needs an explicit height. It does not touch
+ * the width/display/flex/grid/position of any parent container. */
+.shipment-ticker {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 2.75rem;
+  overflow: hidden;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  background: #d62828;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.shipment-ticker__track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  white-space: nowrap;
+  will-change: transform;
+  animation: shipment-ticker-scroll 18s linear infinite;
+}
+
+.shipment-ticker__item {
+  display: inline-block;
+  padding: 0 2rem;
+}
+
+@keyframes shipment-ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Two identical items: shifting by half the track loops seamlessly. */
+    transform: translateX(-50%);
+  }
+}
+
+/* Respect users who prefer no motion: show a single static, readable line. */
+@media (prefers-reduced-motion: reduce) {
+  .shipment-ticker__track {
+    animation: none;
+  }
+  .shipment-ticker__item + .shipment-ticker__item {
+    display: none;
+  }
+}

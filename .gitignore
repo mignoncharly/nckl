@@ -1,0 +1,49 @@
+# ---- Secrets / environment ----
+.env
+.env.*
+!.env.example
+
+# Deployment secrets & generated configs (real values live on the server only).
+# Keep the *.example templates tracked.
+deploy/.secrets.json
+deploy/redis-saha.conf
+!deploy/.secrets.example.json
+!deploy/redis-saha.conf.example
+
+# ---- Runtime / data artifacts (must never be committed) ----
+deploy/redis-data/
+*.rdb
+*.pid
+backups/
+
+# ---- Python / Django backend ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+*.sqlite3
+backend/staticfiles/
+backend/logs/
+backend/media/
+backend/test_media/
+
+# ---- Node / Next.js frontend ----
+node_modules/
+.next/
+out/
+next-env.d.ts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---- Editor / OS ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---- Docker / certs ----
+infra/letsencrypt/
+*.pem
