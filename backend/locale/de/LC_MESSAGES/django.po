@@ -517,3 +517,159 @@ msgstr "Französisch"
 #: config/settings/base.py:118
 msgid "German"
 msgstr "Deutsch"
+
+#: apps/core/i18n.py
+msgid "Parcel shipping"
+msgstr "Paketversand"
+
+#: apps/core/i18n.py
+msgid "Parcel shipping between Germany or Europe and Cameroon."
+msgstr "Paketversand zwischen Deutschland oder Europa und Kamerun."
+
+#: apps/core/i18n.py
+msgid "Shopping assistance"
+msgstr "Einkaufshilfe"
+
+#: apps/core/i18n.py
+msgid "Shopping assistance in Douala and Bamenda."
+msgstr "Einkaufshilfe in Douala und Bamenda."
+
+#: apps/core/i18n.py
+msgid "Europe shopping delivery"
+msgstr "Einkauf in Europa mit Lieferung nach Kamerun"
+
+#: apps/core/i18n.py
+msgid "NCKL buys products in Europe and delivers them to Cameroon after confirmation."
+msgstr "NCKL kauft Produkte in Europa und liefert sie nach Bestätigung nach Kamerun."
+
+#: apps/core/i18n.py
+msgid "Travel agency pickup"
+msgstr "Abholung bei Reiseagenturen"
+
+#: apps/core/i18n.py
+msgid "Package pickup from travel agencies in Douala."
+msgstr "Paketabholung bei Reiseagenturen in Douala."
+
+#: apps/core/i18n.py
+msgid "Germany/Europe to Cameroon"
+msgstr "Deutschland/Europa nach Kamerun"
+
+#: apps/core/i18n.py
+msgid "Cameroon to Germany/Europe"
+msgstr "Kamerun nach Deutschland/Europa"
+
+#: apps/core/i18n.py
+msgid "Germany or Europe"
+msgstr "Deutschland oder Europa"
+
+#: apps/core/i18n.py
+msgid "Germany or Europe to Cameroon"
+msgstr "Deutschland oder Europa nach Kamerun"
+
+#: apps/core/i18n.py
+msgid "Cameroon to Germany or Europe"
+msgstr "Kamerun nach Deutschland oder Europa"
+
+#: apps/core/i18n.py
+msgid "Germany or Europe to Cameroon only"
+msgstr "Nur Deutschland oder Europa nach Kamerun"
+
+#: apps/core/i18n.py
+msgid "Cameroon to Germany or Europe only"
+msgstr "Nur Kamerun nach Deutschland oder Europa"
+
+#: apps/core/i18n.py
+msgid "Foodstuff (dry)"
+msgstr "Trockene Lebensmittel"
+
+#: apps/core/i18n.py
+msgid "Frozen food"
+msgstr "Tiefkühlkost"
+
+#: apps/core/i18n.py
+msgid "Clothes"
+msgstr "Kleidung"
+
+#: apps/core/i18n.py
+msgid "Jewelries"
+msgstr "Schmuck"
+
+#: apps/core/i18n.py
+msgid "Bags"
+msgstr "Taschen"
+
+#: apps/core/i18n.py
+msgid "Shoes"
+msgstr "Schuhe"
+
+#: apps/core/i18n.py
+msgid "Cosmetics"
+msgstr "Kosmetik"
+
+#: apps/core/i18n.py
+msgid "Hair extensions"
+msgstr "Haarverlängerungen"
+
+#: apps/core/i18n.py
+msgid "Dry herbs"
+msgstr "Trockene Kräuter"
+
+#: apps/core/i18n.py
+msgid "Documents"
+msgstr "Dokumente"
+
+#: apps/core/i18n.py
+msgid "Phones without battery"
+msgstr "Telefone ohne Akku"
+
+#: apps/core/i18n.py
+msgid "Small household equipment"
+msgstr "Kleine Haushaltsgeräte"
+
+#: apps/core/i18n.py
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: apps/core/i18n.py
+msgid "Germany"
+msgstr "Deutschland"
+
+#: apps/core/i18n.py
+msgid "Europe"
+msgstr "Europa"
+
+#: apps/core/i18n.py
+msgid "Departure date"
+msgstr "Abfahrtsdatum"
+
+#: apps/core/i18n.py
+msgid "July 2026 Cameroon to Germany/Europe shipment"
+msgstr "Sendung Kamerun nach Deutschland/Europa - Juli 2026"
+
+#: apps/core/i18n.py
+msgid "Visible NCKL flyer departure date for Cameroon to Germany/Europe"
+msgstr "Auf dem NCKL-Flyer sichtbares Abfahrtsdatum für Kamerun nach Deutschland/Europa"
+
+#: apps/core/i18n.py
+msgid "Visible flyer schedule. Confirm whether this is one-time or recurring before production use."
+msgstr "Auf dem Flyer sichtbarer Termin. Vor operativer Nutzung bestätigen, ob einmalig oder wiederkehrend."
+
+#: apps/core/i18n.py
+msgid "Tuesday - Saturday, 11am - 3pm"
+msgstr "Dienstag - Samstag, 11:00 - 15:00 Uhr"
+
+#: apps/core/i18n.py
+msgid "Call or WhatsApp"
+msgstr "Anruf oder WhatsApp"
+
+#: apps/core/i18n.py
+msgid "WhatsApp only"
+msgstr "Nur WhatsApp"
+
+#: apps/core/i18n.py
+msgid "Monday - Saturday"
+msgstr "Montag - Samstag"
+
+#: apps/core/i18n.py
+msgid "A la nouvelle route Bonaberi, Dola service station"
+msgstr "An der nouvelle route Bonaberi, Dôla-Tankstelle"
