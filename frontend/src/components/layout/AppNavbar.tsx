@@ -10,6 +10,7 @@ import LanguageSwitcher from "@/components/layout/LanguageSwitcher";
 import WhatsAppCTA from "@/components/public/WhatsAppCTA";
 import { mainNav } from "@/lib/navigation";
 import { useTranslation } from "@/lib/i18n";
+import { COMPANY_SHORT_NAME } from "@/lib/constants";
 
 export default function AppNavbar() {
   const pathname = usePathname();
@@ -27,7 +28,7 @@ export default function AppNavbar() {
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-blue text-white">
             <Package className="h-5 w-5 text-brand-gold" />
           </span>
-          <span>STL</span>
+          <span>{COMPANY_SHORT_NAME}</span>
         </Link>
 
         {/* Desktop nav */}

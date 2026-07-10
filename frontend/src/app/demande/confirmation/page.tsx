@@ -45,7 +45,7 @@ function ConfirmationInner() {
         </div>
         <h1 className="font-display text-3xl font-bold text-gray-900">{t("Demande envoyée !")}</h1>
         <p className="mx-auto mt-3 max-w-md text-gray-600">
-          {t("Votre demande a bien été enregistrée. L'équipe STL vous contactera bientôt pour confirmer les détails et le prix.")}
+          {t("Votre demande a bien été enregistrée. L'équipe NCKL vous contactera bientôt pour confirmer les détails et le prix.")}
         </p>
       </div>
 

@@ -17,7 +17,7 @@ const sections = [
   },
   {
     title: "Vos droits",
-    body: "Conformément au RGPD, vous pouvez demander l'accès, la rectification ou la suppression de vos données en nous contactant à info@gestionatech.de. Les photos et informations personnelles sont supprimées sous 30 jours après finalisation de l'envoi.",
+    body: "Conformément au RGPD, vous pouvez demander l'accès, la rectification ou la suppression de vos données en nous contactant à . Les photos et informations personnelles sont supprimées sous 30 jours après finalisation de l'envoi.",
   },
   {
     title: "Cookies",
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
         hero
         icon={<ShieldCheck className="h-8 w-8" />}
         title={t("Politique de confidentialité")}
-        subtitle={t("SAHA Transport & Logistics s'engage à protéger vos données personnelles.")}
+        subtitle={t("NCKL Logistics Services s'engage à protéger vos données personnelles.")}
       />
 
       <div className="container-page max-w-3xl py-12">

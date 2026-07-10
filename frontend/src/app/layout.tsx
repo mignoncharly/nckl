@@ -10,14 +10,15 @@ import { Toaster } from "sonner";
 import ServiceWorkerRegistration from "@/components/pwa/ServiceWorkerRegistration";
 import InstallPWAButton from "@/components/pwa/InstallPWAButton";
 import { getServerTranslation } from "@/lib/i18n-server";
+import { ncklConfig } from "@/lib/nckl-config";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export function generateMetadata(): Metadata {
   const { t } = getServerTranslation();
   return {
-    title: t("SAHA Transport & Logistics – Un colis, un sourire…"),
-    description: t("Transport de colis, fûts, véhicules et marchandises vers le Cameroun. Ramassages en Europe, livraison à Douala, Yaoundé, Bafoussam."),
+    title: t("NCKL Logistics Services – Un colis, un sourire…"),
+    description: t("Parcel shipping between Germany, Europe, and Cameroon with shopping assistance and managed drop-off locations."),
     manifest: "/manifest.webmanifest",
   };
 }

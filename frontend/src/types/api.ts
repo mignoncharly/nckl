@@ -7,6 +7,62 @@ export interface ServiceType {
   sort_order?: number;
 }
 
+
+export interface RouteOption {
+  id: number;
+  name: string;
+  direction: "germany_cameroon" | "cameroon_germany";
+  direction_display: string;
+  origin_label: string;
+  destination_label: string;
+  transit_time_display: string;
+  shopping_assistance_available: boolean;
+  notes: string;
+  active?: boolean;
+  sort_order?: number;
+}
+
+export interface AcceptedItemCategory {
+  id: number;
+  name: string;
+  description: string;
+  max_weight_kg: string | null;
+  requires_battery_removed: boolean;
+  route_restriction: string;
+  route_restriction_display: string;
+  active?: boolean;
+  sort_order?: number;
+}
+
+export interface DropOffLocation {
+  id: number;
+  name: string;
+  city: string;
+  country: string;
+  location_type: string;
+  location_type_display: string;
+  address: string;
+  details: string;
+  phone: string;
+  whatsapp: string;
+  opening_hours: string;
+  active?: boolean;
+  sort_order?: number;
+}
+
+export interface ShipmentSchedule {
+  id: number;
+  route: RouteOption | null;
+  title: string;
+  drop_off_location: DropOffLocation | null;
+  latest_dropoff_at: string | null;
+  departure_date: string | null;
+  estimated_arrival_date: string | null;
+  notes: string;
+  active?: boolean;
+  sort_order?: number;
+}
+
 export interface PriceRule {
   id: number;
   service_type: number;

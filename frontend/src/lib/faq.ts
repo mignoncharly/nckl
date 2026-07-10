@@ -34,7 +34,7 @@ const faqSource: FAQItem[] = [
   {
     question: "Est-ce que le paiement se fait en ligne ?",
     answer:
-      "Le paiement en ligne n’est pas encore disponible. Après votre demande, l’équipe STL vous contacte pour confirmer les détails, le prix et les modalités.",
+      "Le paiement en ligne n’est pas encore disponible. Après votre demande, l’équipe NCKL vous contacte pour confirmer les détails, le prix et les modalités.",
   },
   {
     question: "Comment recevoir les notifications ?",
@@ -44,7 +44,7 @@ const faqSource: FAQItem[] = [
   {
     question: "Comment suivre ma demande ?",
     answer:
-      "Utilisez la page « Suivi de demande » et entrez votre numéro de référence (ex: STL-2026-000123) pour voir l’état de votre envoi.",
+      "Utilisez la page « Suivi de demande » et entrez votre numéro de référence (ex: NCKL-2026-000123) pour voir l’état de votre envoi.",
   },
 ];
 

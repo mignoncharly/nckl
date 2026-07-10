@@ -48,7 +48,7 @@ function VerifyEmailInner() {
         }
       >
         <p className="rounded-lg bg-green-50 p-4 text-center text-sm text-green-700">
-          {t("Vous pouvez maintenant profiter pleinement de votre espace STL.")}
+          {t("Vous pouvez maintenant profiter pleinement de votre espace NCKL.")}
         </p>
       </AuthCard>
     );

@@ -4,7 +4,7 @@ import { useTranslation } from "@/lib/i18n";
 
 const steps = [
   { icon: ClipboardList, title: "Vous faites une demande", text: "Décrivez vos biens et votre adresse de ramassage en quelques minutes." },
-  { icon: PhoneCall, title: "STL vous contacte", text: "Notre équipe confirme les détails, le volume et le prix final." },
+  { icon: PhoneCall, title: "NCKL vous contacte", text: "Notre équipe confirme les détails, le volume et le prix final." },
   { icon: PackageCheck, title: "Le ramassage est organisé", text: "Nous récupérons vos colis, fûts ou véhicules en Europe." },
   { icon: Ship, title: "Vos biens sont acheminés", text: "Transport sécurisé jusqu'à Douala, Yaoundé ou Bafoussam." },
   { icon: BellRing, title: "Vous êtes informé", text: "Suivez le statut et recevez des notifications à chaque étape." },

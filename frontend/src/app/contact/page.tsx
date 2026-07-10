@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { Phone, Mail, MapPin, Truck, Send } from "lucide-react";
 import { createContactSchema, type ContactFormData } from "@/lib/validators";
 import { api, parseApiError } from "@/lib/api";
-import { PICKUP_CITIES, DELIVERY_CITIES, WHATSAPP_NUMBER } from "@/lib/constants";
+import { PICKUP_CITIES, DELIVERY_CITIES, WHATSAPP_NUMBER, SUPPORT_EMAIL } from "@/lib/constants";
 import PageHeader from "@/components/ui/PageHeader";
 import FormField from "@/components/ui/FormField";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
@@ -58,18 +58,20 @@ export default function ContactPage() {
                 <p className="text-sm text-gray-500">{WHATSAPP_NUMBER}</p>
               </div>
             </a>
-            <a
-              href="mailto:info@gestionatech.de"
-              className="flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-5 shadow-card transition-shadow hover:shadow-soft"
-            >
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue">
-                <Mail className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="text-sm font-semibold text-gray-900">{t("Email")}</p>
-                <p className="break-all text-sm text-gray-500">info@gestionatech.de</p>
-              </div>
-            </a>
+            {SUPPORT_EMAIL && (
+              <a
+                href={`mailto:${SUPPORT_EMAIL}`}
+                className="flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-5 shadow-card transition-shadow hover:shadow-soft"
+              >
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue">
+                  <Mail className="h-5 w-5" />
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">{t("Email")}</p>
+                  <p className="break-all text-sm text-gray-500">{SUPPORT_EMAIL}</p>
+                </div>
+              </a>
+            )}
           </div>
 
           <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-card">

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Package, MapPin, Mail, Truck } from "lucide-react";
-import { PICKUP_CITIES, DELIVERY_CITIES } from "@/lib/constants";
+import { PICKUP_CITIES, DELIVERY_CITIES, COMPANY_NAME, SUPPORT_EMAIL } from "@/lib/constants";
 import WhatsAppCTA from "@/components/public/WhatsAppCTA";
 import { useTranslation } from "@/lib/i18n";
 
@@ -31,7 +31,7 @@ export default function Footer() {
             <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10">
               <Package className="h-5 w-5 text-brand-gold" />
             </span>
-            SAHA Transport &amp; Logistics
+            {COMPANY_NAME}
           </div>
           <p className="mt-3 font-display text-brand-gold">{t("footer.tagline")}</p>
           <p className="mt-2 max-w-xs text-sm text-navy-200">{t("footer.intro")}</p>
@@ -74,19 +74,21 @@ export default function Footer() {
               </li>
             ))}
           </ul>
-          <a
-            href="mailto:info@gestionatech.de"
-            className="mt-5 inline-flex items-center gap-2 text-sm text-navy-200 transition-colors hover:text-white"
-          >
-            <Mail className="h-4 w-4 text-brand-gold" /> info@gestionatech.de
-          </a>
+          {SUPPORT_EMAIL && (
+            <a
+              href={`mailto:${SUPPORT_EMAIL}`}
+              className="mt-5 inline-flex items-center gap-2 text-sm text-navy-200 transition-colors hover:text-white"
+            >
+              <Mail className="h-4 w-4 text-brand-gold" /> {SUPPORT_EMAIL}
+            </a>
+          )}
         </div>
       </div>
 
       <div className="border-t border-white/10">
         <div className="container-page flex flex-col items-center justify-between gap-3 pt-5 pb-24 text-xs text-navy-300 sm:flex-row lg:pb-5">
           <p>
-            &copy; {new Date().getFullYear()} SAHA Transport &amp; Logistics. {t("footer.rights")}
+            &copy; {new Date().getFullYear()} {COMPANY_NAME}. {t("footer.rights")}
           </p>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="transition-colors hover:text-white">

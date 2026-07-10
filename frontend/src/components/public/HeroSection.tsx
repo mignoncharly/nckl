@@ -53,7 +53,7 @@ export default function HeroSection({ nextLoading }: { nextLoading?: LoadingDate
               {t("Transport de colis, fûts, véhicules et marchandises vers le Cameroun")}
             </h1>
             <p className="mt-5 max-w-2xl text-lg text-blue-100">
-              {t("SAHA Transport & Logistics organise vos ramassages en Europe et vos livraisons à Douala, Yaoundé et Bafoussam.")}
+              {t("NCKL Logistics Services organise vos ramassages en Europe et vos livraisons à Douala, Yaoundé et Bafoussam.")}
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -83,7 +83,7 @@ export default function HeroSection({ nextLoading }: { nextLoading?: LoadingDate
           <div className="relative">
             <Image
               src="/images/hero.jpg"
-              alt={t("Équipe SAHA Transport & Logistics chargeant des colis pour le Cameroun")}
+              alt={t("Équipe NCKL Logistics Services chargeant des colis pour le Cameroun")}
               width={1079}
               height={381}
               priority

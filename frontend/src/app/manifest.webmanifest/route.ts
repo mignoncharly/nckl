@@ -7,8 +7,8 @@ export function GET() {
   const { locale, t } = getServerTranslation();
   return NextResponse.json(
     {
-      name: "SAHA Transport & Logistics",
-      short_name: "STL",
+      name: "NCKL Logistics Services",
+      short_name: "NCKL",
       description: t("Transport de colis, fûts, véhicules et marchandises d'Europe vers le Cameroun."),
       lang: locale,
       dir: "ltr",

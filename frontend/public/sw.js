@@ -1,4 +1,4 @@
-const CACHE_NAME = 'stl-v2';
+const CACHE_NAME = 'nckl-v1';
 const OFFLINE_URL = '/offline.html';
 const ASSETS = [
   '/',

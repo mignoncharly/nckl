@@ -250,7 +250,7 @@ function SuiviInner() {
                 type="text"
                 value={ref}
                 onChange={(e) => setRef(e.target.value.toUpperCase())}
-                placeholder={t("Ex: STL-2026-000123")}
+                placeholder={t("Ex: NCKL-2026-000123")}
                 aria-label={t("Numéro de référence")}
                 className="input flex-1"
               />

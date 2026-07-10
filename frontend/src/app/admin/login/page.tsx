@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
     <AuthCard
       icon={<ShieldCheck className="h-6 w-6" />}
       title={t("Espace administrateur")}
-      subtitle={t("Connexion réservée à l'équipe STL.")}
+      subtitle={t("Connexion réservée à l'équipe NCKL.")}
     >
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         {error && <div role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{error}</div>}

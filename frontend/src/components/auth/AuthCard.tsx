@@ -21,7 +21,7 @@ export default function AuthCard({ title, subtitle, icon, children, footer }: Au
           <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-blue text-white">
             <Package className="h-5 w-5 text-brand-gold" />
           </span>
-          STL
+          NCKL
         </Link>
 
         <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-soft">

@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useMemo } from "react";
-import { User, Boxes, MapPin, ImagePlus, NotebookPen } from "lucide-react";
+import { User, Boxes, MapPin, ImagePlus, NotebookPen, Route } from "lucide-react";
 import { createTransportRequestSchema, type TransportRequestFormData } from "@/lib/validators";
 import { api, parseApiError } from "@/lib/api";
-import type { ServiceType, DestinationCity } from "@/types/api";
+import type { ServiceType, DestinationCity, RouteOption, AcceptedItemCategory, DropOffLocation, ShipmentSchedule } from "@/types/api";
 import PageHeader from "@/components/ui/PageHeader";
 import FormField from "@/components/ui/FormField";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
@@ -19,12 +19,20 @@ export default function DemandePage() {
   const schema = useMemo(() => createTransportRequestSchema(t), [t]);
   const [services, setServices] = useState<ServiceType[]>([]);
   const [destinations, setDestinations] = useState<DestinationCity[]>([]);
+  const [routes, setRoutes] = useState<RouteOption[]>([]);
+  const [acceptedItems, setAcceptedItems] = useState<AcceptedItemCategory[]>([]);
+  const [locations, setLocations] = useState<DropOffLocation[]>([]);
+  const [shipmentSchedules, setShipmentSchedules] = useState<ShipmentSchedule[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     api.get<ServiceType[]>("/services/").then(setServices).catch(console.error);
     api.get<DestinationCity[]>("/destination-cities/").then(setDestinations).catch(console.error);
+    api.get<RouteOption[]>("/services/routes/").then(setRoutes).catch(console.error);
+    api.get<AcceptedItemCategory[]>("/services/accepted-items/").then(setAcceptedItems).catch(console.error);
+    api.get<DropOffLocation[]>("/pickup-schedules/drop-off-locations/").then(setLocations).catch(console.error);
+    api.get<ShipmentSchedule[]>("/pickup-schedules/shipment-schedules/").then(setShipmentSchedules).catch(console.error);
   }, []);
 
   const {
@@ -46,6 +54,10 @@ export default function DemandePage() {
     // Map frontend field names to the API serializer field names.
     const fieldNameMap: Partial<Record<keyof TransportRequestFormData, string>> = {
       service_type_id: "service_type",
+      route_option_id: "route_option",
+      accepted_item_id: "accepted_item",
+      drop_off_location_id: "drop_off_location",
+      shipment_schedule_id: "shipment_schedule",
       destination_city_id: "destination_city",
     };
     (Object.keys(data) as Array<keyof TransportRequestFormData>).forEach((key) => {
@@ -119,6 +131,45 @@ export default function DemandePage() {
             </div>
           </fieldset>
 
+          {/* Route selection */}
+          <fieldset className="card">
+            <legend className="mb-4 flex items-center gap-2 text-lg font-bold text-gray-900">
+              <Route className="h-5 w-5 text-brand-blue" /> {t("Route et mode de dépôt")}
+            </legend>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <FormField label={t("Route")} htmlFor="route_option_id">
+                <select id="route_option_id" {...register("route_option_id")} className="input">
+                  <option value="">{t("Sélectionnez…")}</option>
+                  {routes.map((route) => (
+                    <option key={route.id} value={route.id}>
+                      {route.name}{route.transit_time_display ? ` - ${route.transit_time_display}` : ""}
+                    </option>
+                  ))}
+                </select>
+              </FormField>
+              <FormField label={t("Lieu de dépôt ou retrait")} htmlFor="drop_off_location_id">
+                <select id="drop_off_location_id" {...register("drop_off_location_id")} className="input">
+                  <option value="">{t("Sélectionnez…")}</option>
+                  {locations.map((location) => (
+                    <option key={location.id} value={location.id}>
+                      {location.city} - {location.name}
+                    </option>
+                  ))}
+                </select>
+              </FormField>
+              <FormField label={t("Date / expédition publiée")} htmlFor="shipment_schedule_id" className="sm:col-span-2">
+                <select id="shipment_schedule_id" {...register("shipment_schedule_id")} className="input">
+                  <option value="">{t("Aucune date sélectionnée")}</option>
+                  {shipmentSchedules.map((schedule) => (
+                    <option key={schedule.id} value={schedule.id}>
+                      {schedule.title || schedule.route?.name || t("Expédition publiée")}
+                    </option>
+                  ))}
+                </select>
+              </FormField>
+            </div>
+          </fieldset>
+
           {/* Goods info */}
           <fieldset className="card">
             <legend className="mb-4 flex items-center gap-2 text-lg font-bold text-gray-900">
@@ -135,18 +186,41 @@ export default function DemandePage() {
                   ))}
                 </select>
               </FormField>
+              <FormField label={t("Catégorie d'article")} htmlFor="accepted_item_id">
+                <select id="accepted_item_id" {...register("accepted_item_id")} className="input">
+                  <option value="">{t("Sélectionnez…")}</option>
+                  {acceptedItems.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.name}{item.max_weight_kg ? ` - max ${item.max_weight_kg} kg` : ""}
+                    </option>
+                  ))}
+                </select>
+              </FormField>
               <FormField label={t("Quantité")} htmlFor="quantity">
                 <input id="quantity" type="number" min={1} {...register("quantity")} className="input" />
               </FormField>
               <FormField label={t("Dimensions (approx.)")} htmlFor="dimensions">
                 <input id="dimensions" {...register("dimensions")} placeholder={t("ex: 50x30x20 cm")} className="input" />
               </FormField>
-              <FormField label={t("Poids estimé (kg)")} htmlFor="estimated_weight">
-                <input id="estimated_weight" {...register("estimated_weight")} className="input" />
+              <FormField label={t("Poids estimé (kg)")} htmlFor="item_weight_kg">
+                <input id="item_weight_kg" type="number" min="0" step="0.01" {...register("item_weight_kg")} className="input" />
               </FormField>
             </div>
             <FormField label={t("Description supplémentaire")} htmlFor="description" className="mt-4">
               <textarea id="description" rows={3} {...register("description")} className="input" />
+            </FormField>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <label className="flex items-start gap-2 rounded-lg border border-gray-100 p-3 text-sm text-gray-600">
+                <input type="checkbox" {...register("phones_without_battery_confirmed")} className="mt-1 h-4 w-4 rounded border-gray-300 text-brand-red focus:ring-brand-red" />
+                <span>{t("Le téléphone est sans batterie, si applicable.")}</span>
+              </label>
+              <label className="flex items-start gap-2 rounded-lg border border-gray-100 p-3 text-sm text-gray-600">
+                <input type="checkbox" {...register("shopping_assistance_requested")} className="mt-1 h-4 w-4 rounded border-gray-300 text-brand-red focus:ring-brand-red" />
+                <span>{t("Je demande une assistance shopping.")}</span>
+              </label>
+            </div>
+            <FormField label={t("Détails shopping, si applicable")} htmlFor="shopping_details" className="mt-4">
+              <textarea id="shopping_details" rows={2} {...register("shopping_details")} className="input" />
             </FormField>
           </fieldset>
 

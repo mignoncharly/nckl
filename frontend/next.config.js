@@ -10,7 +10,7 @@ const cspReportOnly = [
   "style-src 'self' 'unsafe-inline'",
   "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
   "font-src 'self' data:",
-  "connect-src 'self' https://api-saha.docufisc.de",
+  `connect-src 'self' ${process.env.NEXT_PUBLIC_API_ORIGIN || "http://localhost:8000"}`,
   "form-action 'self'",
 ].join('; ');
 

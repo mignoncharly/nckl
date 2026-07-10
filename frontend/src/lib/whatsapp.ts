@@ -13,7 +13,7 @@ export function whatsappLink(message?: string): string {
 
 export function buildWhatsAppPrefill(reference: string, pickup: string, destination: string, t: Translate): string {
   const parts = [
-    t("Bonjour STL, je viens de faire une demande de transport."),
+    t("Bonjour NCKL, je viens de faire une demande de transport."),
     reference ? t("Référence: {reference}.", { reference }) : "",
     pickup ? t("Ville de ramassage: {pickup}.", { pickup }) : "",
     destination ? t("Destination: {destination}.", { destination }) : "",
