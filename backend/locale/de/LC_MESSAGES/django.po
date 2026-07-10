@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: SAHA STL\n"
+"Project-Id-Version: NCKL\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-25 13:28+0200\n"
 "PO-Revision-Date: 2026-06-25 00:00+0000\n"
-"Last-Translator: SAHA STL\n"
+"Last-Translator: NCKL\n"
 "Language-Team: German\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -103,8 +103,8 @@ msgstr "Auditprotokoll"
 
 #: apps/contact/views.py:20
 #, python-format
-msgid "STL contact — %(name)s"
-msgstr "STL-Kontakt — %(name)s"
+msgid "NCKL contact — %(name)s"
+msgstr "NCKL-Kontakt — %(name)s"
 
 #: apps/contact/views.py:21
 #, python-format
@@ -310,8 +310,8 @@ msgid "All rights reserved."
 msgstr "Alle Rechte vorbehalten."
 
 #: apps/notifications/emails.py:111
-msgid "Verify your email address — SAHA Transport & Logistics"
-msgstr "Bestätigen Sie Ihre E-Mail-Adresse — SAHA Transport & Logistics"
+msgid "Verify your email address — NCKL Logistics Services"
+msgstr "Bestätigen Sie Ihre E-Mail-Adresse — NCKL Logistics Services"
 
 #: apps/notifications/emails.py:113 apps/notifications/emails.py:122
 #: apps/notifications/emails.py:145 apps/notifications/emails.py:153
@@ -319,8 +319,8 @@ msgid "Hello,"
 msgstr "Guten Tag,"
 
 #: apps/notifications/emails.py:114
-msgid "Welcome to SAHA Transport & Logistics!"
-msgstr "Willkommen bei SAHA Transport & Logistics!"
+msgid "Welcome to NCKL Logistics Services!"
+msgstr "Willkommen bei NCKL Logistics Services!"
 
 #: apps/notifications/emails.py:115
 msgid "Please confirm your email address by opening this link:"
@@ -335,12 +335,12 @@ msgid "If you did not create an account, you can ignore this message."
 msgstr "Falls Sie kein Konto erstellt haben, können Sie diese Nachricht ignorieren."
 
 #: apps/notifications/emails.py:119 apps/notifications/emails.py:150
-msgid "The SAHA Transport & Logistics team"
-msgstr "Ihr Team von SAHA Transport & Logistics"
+msgid "The NCKL Logistics Services team"
+msgstr "Ihr Team von NCKL Logistics Services"
 
 #: apps/notifications/emails.py:123
-msgid "Welcome to <strong>SAHA Transport &amp; Logistics</strong>! "
-msgstr "Willkommen bei <strong>SAHA Transport &amp; Logistics</strong>! "
+msgid "Welcome to <strong>NCKL Logistics Services</strong>! "
+msgstr "Willkommen bei <strong>NCKL Logistics Services</strong>! "
 
 #: apps/notifications/emails.py:124
 msgid "One final step: confirm your email address to secure your account and track your shipments."
@@ -351,8 +351,8 @@ msgid "This link is valid for 24 hours. If you did not create an account, you ca
 msgstr "Dieser Link ist 24 Stunden gültig. Falls Sie kein Konto erstellt haben, können Sie diese Nachricht ignorieren."
 
 #: apps/notifications/emails.py:132
-msgid "Confirm your email address to activate your SAHA account."
-msgstr "Bestätigen Sie Ihre E-Mail-Adresse, um Ihr SAHA-Konto zu aktivieren."
+msgid "Confirm your email address to activate your NCKL account."
+msgstr "Bestätigen Sie Ihre E-Mail-Adresse, um Ihr NCKL-Konto zu aktivieren."
 
 #: apps/notifications/emails.py:133
 msgid "Confirm your email address"
@@ -363,8 +363,8 @@ msgid "Verify my email address"
 msgstr "Meine E-Mail-Adresse bestätigen"
 
 #: apps/notifications/emails.py:143
-msgid "Reset your password — SAHA Transport & Logistics"
-msgstr "Passwort zurücksetzen — SAHA Transport & Logistics"
+msgid "Reset your password — NCKL Logistics Services"
+msgstr "Passwort zurücksetzen — NCKL Logistics Services"
 
 #: apps/notifications/emails.py:146
 msgid "You requested a password reset."
@@ -383,8 +383,8 @@ msgid "You requested a password reset. Click the button below to choose a new pa
 msgstr "Sie haben das Zurücksetzen Ihres Passworts angefordert. Klicken Sie auf die Schaltfläche, um ein neues Passwort festzulegen."
 
 #: apps/notifications/emails.py:162
-msgid "Reset the password for your SAHA account."
-msgstr "Setzen Sie das Passwort Ihres SAHA-Kontos zurück."
+msgid "Reset the password for your NCKL account."
+msgstr "Setzen Sie das Passwort Ihres NCKL-Kontos zurück."
 
 #: apps/notifications/emails.py:163
 msgid "Reset your password"

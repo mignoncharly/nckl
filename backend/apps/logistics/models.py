@@ -1,8 +1,9 @@
 from django.db import models
 from django.conf import settings
 from apps.customers.models import Customer
-from apps.services.models import ServiceType
+from apps.services.models import ServiceType, RouteOption, AcceptedItemCategory
 from apps.destinations.models import DestinationCity
+from apps.schedules.models import DropOffLocation, ShipmentSchedule
 from django.utils.translation import gettext_lazy as _
 
 class TransportRequest(models.Model):
@@ -27,6 +28,10 @@ class TransportRequest(models.Model):
     reference_code = models.CharField(max_length=50, unique=True, db_index=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='requests')
     service_type = models.ForeignKey(ServiceType, on_delete=models.SET_NULL, null=True, blank=True)
+    route_option = models.ForeignKey(RouteOption, on_delete=models.SET_NULL, null=True, blank=True, related_name='transport_requests')
+    accepted_item = models.ForeignKey(AcceptedItemCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name='transport_requests')
+    drop_off_location = models.ForeignKey(DropOffLocation, on_delete=models.SET_NULL, null=True, blank=True, related_name='transport_requests')
+    shipment_schedule = models.ForeignKey(ShipmentSchedule, on_delete=models.SET_NULL, null=True, blank=True, related_name='transport_requests')
     pickup_city = models.CharField(max_length=200)
     pickup_address = models.TextField()
     preferred_pickup_date = models.DateField(null=True, blank=True)
@@ -34,6 +39,10 @@ class TransportRequest(models.Model):
     quantity = models.IntegerField(default=1)
     dimensions = models.CharField(max_length=200, blank=True)
     estimated_weight = models.CharField(max_length=100, blank=True)
+    item_weight_kg = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
+    phones_without_battery_confirmed = models.BooleanField(default=False)
+    shopping_assistance_requested = models.BooleanField(default=False)
+    shopping_details = models.TextField(blank=True)
     description = models.TextField(blank=True)
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='new')
     internal_notes = models.TextField(blank=True)
@@ -48,6 +57,11 @@ class TransportRequest(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['reference_code']),
+            models.Index(fields=['status', 'created_at']),
+            models.Index(fields=['route_option', 'status']),
+        ]
 
     def __str__(self):
         return f"{self.reference_code} - {self.customer.full_name}"

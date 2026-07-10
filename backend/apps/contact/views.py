@@ -17,7 +17,7 @@ class ContactCreateView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
         # Send email to admin
-        subject = _("STL contact — %(name)s") % {'name': data['name']}
+        subject = _("NCKL contact - %(name)s") % {'name': data['name']}
         message = _("Name: %(name)s\nEmail: %(email)s\nMessage:\n%(message)s") % data
         from_email = data['email']
         recipient_list = [settings.DEFAULT_FROM_EMAIL]  # admin email

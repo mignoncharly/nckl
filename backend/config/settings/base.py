@@ -80,11 +80,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
-    'default': env.db_url('DATABASE_URL', default='postgres://stl_user:stl_pass@postgres:5432/stl_db')
+    'default': env.db_url('DATABASE_URL', default='postgres://nckl_user:nckl_pass@localhost:5432/nckl_db')
 }
 
 # Redis
-REDIS_URL = env('REDIS_URL', default='redis://redis:6379/0')
+REDIS_URL = env('REDIS_URL', default='redis://localhost:6379/1')
 
 # Cache
 CACHES = {
@@ -169,16 +169,28 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Email
 EMAIL_BACKEND = env('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
-DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='STL <info@gestionatech.de>')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='NCKL Logistics Services <support@nckl.invalid>')
 
 # VAPID
 VAPID_PRIVATE_KEY = env('VAPID_PRIVATE_KEY', default='')
 VAPID_PUBLIC_KEY = env('VAPID_PUBLIC_KEY', default='')
-VAPID_CLAIMS_EMAIL = env('VAPID_CLAIMS_EMAIL', default='info@gestionatech.de')
+VAPID_CLAIMS_EMAIL = env('VAPID_CLAIMS_EMAIL', default='support@nckl.invalid')
 
 # File upload validation
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024  # 5MB
 ALLOWED_UPLOAD_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp']
+
+# Single-client public configuration. These values are defaults only; production
+# must provide NCKL-owned infrastructure/contact values via environment.
+NCKL_COMPANY_NAME = env('NCKL_COMPANY_NAME', default='NCKL Logistics Services')
+NCKL_SHORT_NAME = env('NCKL_SHORT_NAME', default='NCKL')
+NCKL_SLOGAN_EN = env('NCKL_SLOGAN_EN', default='Your Cargo. Our Commitment.')
+NCKL_SLOGAN_FR = env('NCKL_SLOGAN_FR', default='Votre Cargaison. Notre Engagement.')
+NCKL_PRIMARY_WHATSAPP = env('NCKL_PRIMARY_WHATSAPP', default='+4915212392636')
+NCKL_PRIMARY_PHONE = env('NCKL_PRIMARY_PHONE', default=NCKL_PRIMARY_WHATSAPP)
+NCKL_SUPPORT_EMAIL = env('NCKL_SUPPORT_EMAIL', default='')
+NCKL_TIKTOK_HANDLE = env('NCKL_TIKTOK_HANDLE', default='@nckllogisticsservices')
+REQUEST_REFERENCE_PREFIX = env('REQUEST_REFERENCE_PREFIX', default='NCKL')
 
 
 # Security headers - additional via custom middleware
@@ -210,7 +222,7 @@ LOGGING = {
         },
         'file': {
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': LOGS_DIR / 'stl.log',
+            'filename': LOGS_DIR / 'nckl.log',
             'maxBytes': 1024*1024*10,  # 10 MB
             'backupCount': 5,
             'formatter': 'verbose',

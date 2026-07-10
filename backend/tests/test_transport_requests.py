@@ -59,7 +59,7 @@ class PublicTransportRequestTests(APITestCase):
         response = self.client.post(self.url, self.base_payload(), format="multipart")
         self.assertEqual(response.status_code, 201, response.content)
         self.assertIn("reference_code", response.data)
-        self.assertTrue(response.data["reference_code"].startswith("STL-"))
+        self.assertTrue(response.data["reference_code"].startswith("NCKL-"))
         self.assertEqual(TransportRequest.objects.count(), 1)
         self.assertEqual(Customer.objects.count(), 1)
         request_obj = TransportRequest.objects.first()
@@ -107,7 +107,7 @@ class PublicTrackingPrivacyTests(APITestCase):
             email="jean.secret@example.com",
         )
         self.request_obj = TransportRequest.objects.create(
-            reference_code="STL-2026-000777",
+            reference_code="NCKL-2026-000777",
             customer=self.customer,
             service_type=self.service,
             destination_city=self.destination,
@@ -133,9 +133,9 @@ class PublicTrackingPrivacyTests(APITestCase):
         self.assertEqual(response.status_code, 200, response.content)
         self.assertEqual(set(response.data.keys()), {
             "reference_code", "status", "status_display", "service_type_name",
-            "pickup_city", "destination_name", "preferred_pickup_date", "created_at",
+            "route_name", "pickup_city", "destination_name", "preferred_pickup_date", "created_at",
         })
-        self.assertEqual(response.data["reference_code"], "STL-2026-000777")
+        self.assertEqual(response.data["reference_code"], "NCKL-2026-000777")
         self.assertEqual(response.data["status"], "in_transit")
         self.assertEqual(response.data["service_type_name"], "Colis")
         self.assertEqual(response.data["destination_name"], "Douala")
@@ -178,11 +178,11 @@ class ReferenceCodeTests(APITestCase):
     def test_retries_on_reference_collision(self, mock_peek):
         # Simulate a concurrent submission having already taken the first number:
         # the first peek collides (IntegrityError) and the helper retries.
-        taken = "STL-2026-000001"
+        taken = "NCKL-2026-000001"
         TransportRequest.objects.create(
             reference_code=taken, customer=self.customer, pickup_city="A", pickup_address="x"
         )
-        fresh = "STL-2026-000002"
+        fresh = "NCKL-2026-000002"
         mock_peek.side_effect = [taken, fresh]
         obj = create_transport_request_with_reference(
             customer=self.customer, pickup_city="B", pickup_address="y"
@@ -198,7 +198,7 @@ class StatusTransitionTests(APITestCase):
         )
         self.customer = Customer.objects.create(full_name="Client", phone="+33611111111")
         self.request_obj = TransportRequest.objects.create(
-            reference_code="STL-2026-000001",
+            reference_code="NCKL-2026-000001",
             customer=self.customer,
             pickup_city="Lyon",
             pickup_address="2 rue Garibaldi",
@@ -235,18 +235,18 @@ class CustomerRequestListTests(APITestCase):
         customer = Customer.objects.create(user=user, full_name="Owner", phone="+33622222222")
         other = Customer.objects.create(full_name="Other", phone="+33633333333")
         TransportRequest.objects.create(
-            reference_code="STL-2026-000010", customer=customer,
+            reference_code="NCKL-2026-000010", customer=customer,
             pickup_city="Paris", pickup_address="addr", status="new",
         )
         TransportRequest.objects.create(
-            reference_code="STL-2026-000011", customer=other,
+            reference_code="NCKL-2026-000011", customer=other,
             pickup_city="Paris", pickup_address="addr", status="new",
         )
         self.client.force_authenticate(user)
         response = self.client.get(reverse("customer-request-list"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]["reference_code"], "STL-2026-000010")
+        self.assertEqual(response.data[0]["reference_code"], "NCKL-2026-000010")
 
 
 
@@ -269,7 +269,7 @@ class DataRetentionTests(APITestCase):
             email="client@example.com",
         )
         req = TransportRequest.objects.create(
-            reference_code=f"STL-2026-{TransportRequest.objects.count() + 1:06d}",
+            reference_code=f"NCKL-2026-{TransportRequest.objects.count() + 1:06d}",
             customer=customer,
             pickup_city="Paris",
             pickup_address="1 rue privée",
@@ -373,14 +373,14 @@ class AdminRequestExportTests(APITestCase):
         self.customer_a = Customer.objects.create(full_name="Alice Export", phone="+33610000001")
         self.customer_b = Customer.objects.create(full_name="Bob Export", phone="+33610000002")
         TransportRequest.objects.create(
-            reference_code="STL-2026-000901",
+            reference_code="NCKL-2026-000901",
             customer=self.customer_a,
             pickup_city="Paris",
             pickup_address="1 rue A",
             status="new",
         )
         TransportRequest.objects.create(
-            reference_code="STL-2026-000902",
+            reference_code="NCKL-2026-000902",
             customer=self.customer_b,
             pickup_city="Lyon",
             pickup_address="2 rue B",
@@ -398,11 +398,11 @@ class AdminRequestExportTests(APITestCase):
     def test_export_honors_status_filter(self):
         body = self._export_text("status=confirmed")
 
-        self.assertIn("STL-2026-000902", body)
-        self.assertNotIn("STL-2026-000901", body)
+        self.assertIn("NCKL-2026-000902", body)
+        self.assertNotIn("NCKL-2026-000901", body)
 
     def test_export_honors_search_filter(self):
         body = self._export_text("search=Alice")
 
-        self.assertIn("STL-2026-000901", body)
-        self.assertNotIn("STL-2026-000902", body)
+        self.assertIn("NCKL-2026-000901", body)
+        self.assertNotIn("NCKL-2026-000902", body)

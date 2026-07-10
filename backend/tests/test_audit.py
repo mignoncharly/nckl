@@ -23,7 +23,7 @@ class AuditActorTests(APITestCase):
         )
         self.customer = Customer.objects.create(full_name="C", phone="+33600000000")
         self.req = TransportRequest.objects.create(
-            reference_code="STL-2026-000050", customer=self.customer,
+            reference_code="NCKL-2026-000050", customer=self.customer,
             pickup_city="Lyon", pickup_address="a", status="new",
         )
         AuditLog.objects.all().delete()  # drop the logs produced by setUp

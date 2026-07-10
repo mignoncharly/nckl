@@ -22,7 +22,7 @@ class StatusHistoryTests(APITestCase):
             user=self.user, full_name="Owner", phone="+33600000000"
         )
         self.req = TransportRequest.objects.create(
-            reference_code="STL-2026-000600", customer=self.customer,
+            reference_code="NCKL-2026-000600", customer=self.customer,
             pickup_city="P", pickup_address="a", status="new",
         )
 

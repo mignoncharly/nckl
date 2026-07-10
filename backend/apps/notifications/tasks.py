@@ -118,7 +118,7 @@ def send_status_change_notification(request_id):
     if not subs:
         return
     payload = json.dumps({
-        "title": f"STL – {title}",
+        "title": f"NCKL - {title}",
         "body": body,
         "icon": "/icons/icon-192.png",
     })

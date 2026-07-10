@@ -1,4 +1,4 @@
-"""Branded HTML email templates for SAHA Transport & Logistics (STL).
+"""Branded HTML email templates for NCKL Logistics Services.
 
 Emails are built with table-based layout and inline styles so they render
 consistently across email clients (Gmail, Outlook, Apple Mail, Yahoo, ...).
@@ -17,8 +17,8 @@ TEXT = "#1A1A1A"
 MUTED = "#6B7280"
 BORDER = "#E5E9F0"
 
-WHATSAPP_NUMBER = "+4917684440384"
-SUPPORT_EMAIL = "info@gestionatech.de"
+WHATSAPP_NUMBER = settings.NCKL_PRIMARY_WHATSAPP
+SUPPORT_EMAIL = settings.NCKL_SUPPORT_EMAIL or settings.DEFAULT_FROM_EMAIL
 
 
 def _whatsapp_link():
@@ -30,9 +30,9 @@ def _layout(preheader, heading, intro_html, button_label, button_url, after_html
     site = settings.FRONTEND_URL.rstrip("/")
     whatsapp = _whatsapp_link()
     year = __import__("datetime").date.today().year
-    route_label = _('Europe → Cameroon')
+    route_label = _('Germany/Europe ↔ Cameroon')
     copy_link_label = _('If the button does not work, copy this link into your browser:')
-    company_description = _('Parcel and freight transport from Europe to Cameroon (Douala, Yaoundé, Bafoussam).')
+    company_description = _('Parcel shipping between Germany, Europe, and Cameroon with shopping assistance and managed drop-off locations.')
     rights_label = _('All rights reserved.')
     return f"""\
 <!DOCTYPE html>
@@ -53,8 +53,8 @@ def _layout(preheader, heading, intro_html, button_label, button_url, after_html
   <tr><td style="background:{NAVY};padding:28px 32px;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
       <td style="font-family:Arial,Helvetica,sans-serif;color:#FFFFFF;font-size:22px;font-weight:bold;letter-spacing:1px;">
-        SAHA <span style="color:{GOLD};">&#9679;</span>
-        <div style="font-size:11px;font-weight:normal;letter-spacing:3px;color:#9DB2CE;margin-top:4px;">TRANSPORT &amp; LOGISTICS</div>
+        NCKL <span style="color:{GOLD};">&#9679;</span>
+        <div style="font-size:11px;font-weight:normal;letter-spacing:3px;color:#9DB2CE;margin-top:4px;">LOGISTICS SERVICES</div>
       </td>
       <td align="right" style="font-family:Arial,Helvetica,sans-serif;color:#9DB2CE;font-size:12px;">{route_label}</td>
     </tr></table>
@@ -86,7 +86,7 @@ def _layout(preheader, heading, intro_html, button_label, button_url, after_html
 
   <!-- footer -->
   <tr><td style="background:{LIGHT};padding:24px 32px;border-top:1px solid {BORDER};font-family:Arial,Helvetica,sans-serif;">
-    <p style="margin:0 0 6px 0;font-size:13px;color:{NAVY};font-weight:bold;">SAHA Transport &amp; Logistics</p>
+    <p style="margin:0 0 6px 0;font-size:13px;color:{NAVY};font-weight:bold;">NCKL Logistics Services</p>
     <p style="margin:0 0 10px 0;font-size:12px;line-height:1.6;color:{MUTED};">
       {company_description}
     </p>
@@ -97,7 +97,7 @@ def _layout(preheader, heading, intro_html, button_label, button_url, after_html
       &nbsp;&bull;&nbsp;
       <a href="{site}" style="color:{BLUE};text-decoration:none;">{site.replace('https://','')}</a>
     </p>
-    <p style="margin:14px 0 0 0;font-size:11px;color:#9AA5B1;">&copy; {year} SAHA Transport &amp; Logistics. {rights_label}</p>
+    <p style="margin:14px 0 0 0;font-size:11px;color:#9AA5B1;">&copy; {year} NCKL Logistics Services. {rights_label}</p>
   </td></tr>
 
 </table>
@@ -108,19 +108,19 @@ def _layout(preheader, heading, intro_html, button_label, button_url, after_html
 
 
 def build_verification_email(verify_url):
-    subject = _("Verify your email address — SAHA Transport & Logistics")
+    subject = _("Verify your email address — NCKL Logistics Services")
     text = (
         _("Hello,") + "\n\n"
-        + _("Welcome to SAHA Transport & Logistics!") + "\n\n"
+        + _("Welcome to NCKL Logistics Services!") + "\n\n"
         + _("Please confirm your email address by opening this link:") + "\n"
         f"{verify_url}\n\n"
         + _("This link is valid for 24 hours.") + "\n\n"
         + _("If you did not create an account, you can ignore this message.") + "\n\n"
-        + _("The SAHA Transport & Logistics team")
+        + _("The NCKL Logistics Services team")
     )
     intro = (
         _("Hello,") + "<br><br>"
-        + _("Welcome to <strong>SAHA Transport &amp; Logistics</strong>! ")
+        + _("Welcome to <strong>NCKL Logistics Services</strong>! ")
         + _("One final step: confirm your email address to secure your account and track your shipments.")
     )
     after = (
@@ -129,7 +129,7 @@ def build_verification_email(verify_url):
         + "</p>"
     )
     html = _layout(
-        preheader=_("Confirm your email address to activate your SAHA account."),
+        preheader=_("Confirm your email address to activate your NCKL account."),
         heading=_("Confirm your email address"),
         intro_html=intro,
         button_label=_("Verify my email address"),
@@ -140,14 +140,14 @@ def build_verification_email(verify_url):
 
 
 def build_password_reset_email(reset_url):
-    subject = _("Reset your password — SAHA Transport & Logistics")
+    subject = _("Reset your password — NCKL Logistics Services")
     text = (
         _("Hello,") + "\n\n"
         + _("You requested a password reset.") + "\n"
         + _("Open this link to choose a new password:") + "\n"
         f"{reset_url}\n\n"
         + _("If you did not request this, ignore this message; your password will remain unchanged.") + "\n\n"
-        + _("The SAHA Transport & Logistics team")
+        + _("The NCKL Logistics Services team")
     )
     intro = (
         _("Hello,") + "<br><br>"
@@ -159,7 +159,7 @@ def build_password_reset_email(reset_url):
         + "</p>"
     )
     html = _layout(
-        preheader=_("Reset the password for your SAHA account."),
+        preheader=_("Reset the password for your NCKL account."),
         heading=_("Reset your password"),
         intro_html=intro,
         button_label=_("Choose a new password"),

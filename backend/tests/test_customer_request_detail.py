@@ -17,7 +17,7 @@ class CustomerRequestDetailTests(APITestCase):
             user=self.user, full_name="Owner", phone="+33600000000"
         )
         self.req = TransportRequest.objects.create(
-            reference_code="STL-2026-000500", customer=self.customer,
+            reference_code="NCKL-2026-000500", customer=self.customer,
             pickup_city="Paris", pickup_address="42 rue Privée",
             internal_notes="admin only", estimated_price="120.00", status="confirmed",
         )

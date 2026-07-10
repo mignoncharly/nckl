@@ -122,7 +122,7 @@ class GoneSubscriptionDeactivationTests(APITestCase):
             p256dh="p", auth="a", active=True,
         )
         req = TransportRequest.objects.create(
-            reference_code="STL-2026-000900", customer=customer,
+            reference_code="NCKL-2026-000900", customer=customer,
             pickup_city="P", pickup_address="a", status="new",
         )
         send_status_change_notification(req.id)

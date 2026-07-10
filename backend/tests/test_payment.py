@@ -15,7 +15,7 @@ class PaymentFieldsTests(APITestCase):
         )
         self.customer = Customer.objects.create(full_name="C", phone="+33600000000")
         self.req = TransportRequest.objects.create(
-            reference_code="STL-2026-000700", customer=self.customer,
+            reference_code="NCKL-2026-000700", customer=self.customer,
             pickup_city="P", pickup_address="a",
         )
         self.client.force_authenticate(self.admin)

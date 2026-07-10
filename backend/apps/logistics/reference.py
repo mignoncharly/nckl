@@ -1,5 +1,6 @@
 import datetime
 
+from django.conf import settings
 from django.db import IntegrityError, transaction
 
 # How many times to re-pick a reference number when a concurrent submission
@@ -8,7 +9,7 @@ MAX_REFERENCE_RETRIES = 5
 
 
 def _peek_next_reference_code():
-    """Best-effort next code (``STL-YYYY-NNNNNN``) from the current max for the year.
+    """Best-effort next code (``NCKL-YYYY-NNNNNN``) from the current max for the year.
 
     This read is inherently racy on its own — two concurrent callers can compute
     the same number. Callers MUST insert the row via
@@ -18,7 +19,8 @@ def _peek_next_reference_code():
     from .models import TransportRequest
 
     year = datetime.date.today().year
-    prefix = f"STL-{year}-"
+    prefix_root = getattr(settings, 'REQUEST_REFERENCE_PREFIX', 'NCKL')
+    prefix = f"{prefix_root}-{year}-"
     latest = (
         TransportRequest.objects
         .filter(reference_code__startswith=prefix)
