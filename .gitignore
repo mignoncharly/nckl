@@ -7,14 +7,23 @@
 # Keep the *.example templates tracked.
 deploy/.secrets.json
 deploy/redis-saha.conf
+deploy/redis-nckl.conf
 !deploy/.secrets.example.json
 !deploy/redis-saha.conf.example
+!deploy/redis-nckl.conf.example
 
 # ---- Runtime / data artifacts (must never be committed) ----
 deploy/redis-data/
 *.rdb
 *.pid
 backups/
+*.sql
+*.dump
+*.backup
+*.bak
+
+# Source-client input material: keep local unless explicitly approved.
+docs/nckl_*.jpeg
 
 # ---- Python / Django backend ----
 __pycache__/
@@ -34,9 +43,17 @@ node_modules/
 .next/
 out/
 next-env.d.ts
+tsconfig.tsbuildinfo
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# ---- Logs / private documents ----
+*.log
+*.log.*
+*.csv.private
+*.xlsx.private
+*.pdf.private
 
 # ---- Editor / OS ----
 .vscode/
@@ -44,6 +61,10 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 
-# ---- Docker / certs ----
+# ---- Docker / certs / private keys ----
 infra/letsencrypt/
 *.pem
+*.key
+*.crt
+*.p12
+*.pfx
