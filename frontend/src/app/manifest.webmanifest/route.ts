@@ -9,7 +9,7 @@ export function GET() {
     {
       name: "NCKL Logistics Services",
       short_name: "NCKL",
-      description: t("Transport de colis, fûts, véhicules et marchandises d'Europe vers le Cameroun."),
+      description: t("NCKL parcel shipping and shopping assistance between Cameroon, Germany and Europe."),
       lang: locale,
       dir: "ltr",
       start_url: "/",

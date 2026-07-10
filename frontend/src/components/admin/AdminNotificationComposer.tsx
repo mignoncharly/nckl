@@ -45,7 +45,7 @@ export default function AdminNotificationComposer() {
           <input id="notif-title" value={title} onChange={(e) => setTitle(e.target.value)} className="input" placeholder={t("Nouveau ramassage disponible")} />
         </FormField>
         <FormField label={t("Message")} htmlFor="notif-body" required>
-          <textarea id="notif-body" value={body} onChange={(e) => setBody(e.target.value)} rows={3} className="input" placeholder={t("Ramassage à Francfort le 04.07.2026")} />
+          <textarea id="notif-body" value={body} onChange={(e) => setBody(e.target.value)} rows={3} className="input" placeholder={t("Drop-off Douala 11.07.2026")} />
         </FormField>
         <FormField label={t("Cible")} htmlFor="notif-target">
           <select id="notif-target" value={targetType} onChange={(e) => setTargetType(e.target.value)} className="input">

@@ -25,7 +25,7 @@ export default function FAQPage() {
         hero
         icon={<HelpCircle className="h-8 w-8" />}
         title={t("Foire aux questions")}
-        subtitle={t("Tout ce qu'il faut savoir sur le ramassage, les destinations, les prix et le suivi.")}
+        subtitle={t("Confirmed route, item, schedule, WhatsApp and drop-off information from the NCKL materials.")}
       />
 
       <div className="container-page max-w-3xl py-12">

@@ -5,46 +5,41 @@ export interface FAQItem {
   answer: string;
 }
 
-/** Shared FAQ content, used by the FAQ page and the home-page preview. */
 const faqSource: FAQItem[] = [
   {
-    question: "Comment demander un ramassage ?",
+    question: "Which routes does NCKL support?",
     answer:
-      "Rendez-vous sur la page « Demander un ramassage », remplissez le formulaire avec vos informations et celles de vos biens. Vous recevrez un numéro de référence et serez contacté rapidement.",
+      "NCKL supports Germany/Europe to Cameroon and Cameroon to Germany/Europe. The transit wording is configurable because the supplied flyers show different timing claims.",
   },
   {
-    question: "Quelles villes sont couvertes ?",
+    question: "Where are the drop-off locations?",
     answer:
-      "Nous organisons des ramassages dans de nombreuses villes en Allemagne, en France et au Luxembourg : Francfort, Mainz, Darmstadt, Strasbourg, Metz, Luxembourg, Stuttgart, etc.",
+      "Confirmed NCKL locations are Bamenda, Douala, Berlin and Leipzig. Opening hours and contact numbers are shown on the calendar/contact pages and can be managed by administrators.",
   },
   {
-    question: "Quelles destinations au Cameroun ?",
-    answer: "Nous livrons à Douala, Yaoundé et Bafoussam.",
+    question: "Which items are accepted?",
+    answer:
+      "Confirmed categories include dry and frozen foodstuff, clothes, jewelry, bags, shoes, cosmetics, hair extensions, dry herbs, documents, phones without batteries and small household equipment up to 31 kg.",
   },
   {
-    question: "Comment connaître le prix exact ?",
+    question: "Can NCKL buy products in Europe for delivery to Cameroon?",
     answer:
-      "Les prix affichés sont indicatifs. Le prix final dépend du volume, du poids et de la destination. Notre équipe vous fera un devis personnalisé après votre demande.",
+      "Yes. The supplied materials confirm a WhatsApp-led shopping-from-Europe service for delivery to the customer's doorstep in Cameroon.",
   },
   {
-    question: "Puis-je envoyer des photos de mes colis ?",
+    question: "Are prices available online?",
     answer:
-      "Oui, le formulaire de demande vous permet d’ajouter des photos pour mieux décrire vos marchandises.",
+      "No confirmed public prices were supplied. NCKL confirms the final price after checking route, item type, weight, handling needs and destination.",
   },
   {
-    question: "Est-ce que le paiement se fait en ligne ?",
+    question: "Can NCKL pick up from travel agencies in Douala?",
     answer:
-      "Le paiement en ligne n’est pas encore disponible. Après votre demande, l’équipe NCKL vous contacte pour confirmer les détails, le prix et les modalités.",
+      "Yes. The supplied materials confirm package pickup from travel agencies in Douala. Specific agency details should be confirmed by WhatsApp or configured by an administrator.",
   },
   {
-    question: "Comment recevoir les notifications ?",
+    question: "How do I follow a request?",
     answer:
-      "Vous pouvez autoriser les notifications push lors de votre visite. Vous serez ainsi informé des prochaines dates de ramassage et de l’avancement de votre demande.",
-  },
-  {
-    question: "Comment suivre ma demande ?",
-    answer:
-      "Utilisez la page « Suivi de demande » et entrez votre numéro de référence (ex: NCKL-2026-000123) pour voir l’état de votre envoi.",
+      "Use the tracking page with your NCKL reference number to see the status of your request.",
   },
 ];
 

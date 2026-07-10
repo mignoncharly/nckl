@@ -22,4 +22,30 @@ export const ncklConfig = {
     "Phones without battery",
     "Small household equipment up to 31 kg",
   ],
+  locations: [
+    {
+      city: "Bamenda",
+      label: "Commercial avenue entrance to the stadium, Shed A7",
+      contact: "+237 674574041 / +237 622441020",
+      hours: "Tuesday - Saturday, 11am - 3pm",
+    },
+    {
+      city: "Douala",
+      label: "Bonaberi, Rue 4.670 / Nouvelle route Bonaberi",
+      contact: "+237 675745056 / +237 674972802",
+      hours: "Call or WhatsApp",
+    },
+    {
+      city: "Berlin",
+      label: "Eichushallee 53 Apartment 227, 12437 Berlin",
+      contact: "+49 15222376184",
+      hours: "WhatsApp only",
+    },
+    {
+      city: "Leipzig",
+      label: "Ariana Mark Leipzig, Rosa-Luxemburg Strasse 10, 04103 Leipzig",
+      contact: "+49 15773620710",
+      hours: "Monday - Saturday",
+    },
+  ],
 } as const;

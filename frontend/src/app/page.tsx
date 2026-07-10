@@ -42,10 +42,10 @@ export default async function Home() {
 
   const nextLoading = loadingDates[0];
   const trustItems = [
-    { icon: MapPin, title: t("Ramassage en Europe"), text: t("Allemagne, France, Luxembourg et plus.") },
-    { icon: Truck, title: t("Livraison au Cameroun"), text: t("Douala, Yaoundé et Bafoussam.") },
-    { icon: Boxes, title: t("Colis, fûts, m³, véhicules"), text: t("Tous types de biens et marchandises.") },
-    { icon: BellRing, title: t("Suivi & notifications"), text: t("Informé à chaque étape de l'envoi.") },
+    { icon: MapPin, title: t("Drop-off locations"), text: t("Bamenda, Douala, Berlin and Leipzig.") },
+    { icon: Truck, title: t("Bidirectional routes"), text: t("Germany/Europe to Cameroon and Cameroon to Germany/Europe.") },
+    { icon: Boxes, title: t("Accepted shipping items"), text: t("Foodstuff, clothes, documents, cosmetics and more.") },
+    { icon: BellRing, title: t("Schedules and WhatsApp"), text: t("Departure dates and quote details confirmed by NCKL.") },
   ];
 
   return (
@@ -72,7 +72,7 @@ export default async function Home() {
       {/* Services preview */}
       {services.length > 0 && (
         <Section muted>
-          <SectionHeading eyebrow={t("Nos services")} title={t("Ce que nous transportons")} description={t("Du colis au véhicule chargé, nous acheminons vos biens en toute sécurité.")} />
+          <SectionHeading eyebrow={t("Nos services")} title={t("Confirmed NCKL services")} description={t("Shopping assistance, parcel shipping, travel-agency pickup and Europe shopping delivery.")} />
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {services.slice(0, 4).map((s) => (
               <ServiceCard key={s.id} name={s.name} description={s.description} icon={s.icon} href="/demande" />
@@ -88,13 +88,13 @@ export default async function Home() {
 
       {/* How it works */}
       <Section>
-        <SectionHeading eyebrow={t("Comment ça marche")} title={t("Un envoi simple, en 5 étapes")} description={t("De la demande à la livraison, nous vous accompagnons à chaque étape.")} />
+        <SectionHeading eyebrow={t("Comment ça marche")} title={t("A request flow built around WhatsApp and drop-off points")} description={t("Customers choose a route, item category, weight and preferred NCKL handling option.")} />
         <HowItWorks />
       </Section>
 
       {/* Pickup schedule preview */}
       <Section muted>
-        <SectionHeading eyebrow={t("Calendrier")} title={t("Prochaines tournées de ramassage")} description={t("Planifiez votre envoi selon nos prochaines collectes en Europe.")} />
+        <SectionHeading eyebrow={t("Calendrier")} title={t("Drop-off and shipment schedules")} description={t("NCKL publishes drop-off deadlines, departure dates and estimated arrival dates for each route.")} />
         {nextLoading && (
           <div className="mb-8 flex flex-col items-start gap-3 rounded-2xl bg-gradient-to-br from-brand-blue to-navy-900 p-6 text-white sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
@@ -140,7 +140,7 @@ export default async function Home() {
       {/* Pricing preview */}
       {prices.length > 0 && (
         <Section>
-          <SectionHeading eyebrow={t("Tarifs")} title={t("Des prix transparents")} description={t("Les prix affichés sont indicatifs. Le prix final est confirmé après vérification de votre demande.")} />
+          <SectionHeading eyebrow={t("Tarifs")} title={t("Quote on request")} description={t("No public price was confirmed in the NCKL materials. NCKL confirms prices after checking route, item type, weight and destination.")} />
           <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2">
             {prices.slice(0, 6).map((p) => (
               <PriceCard key={p.id} price={p} />
@@ -173,7 +173,7 @@ export default async function Home() {
         <div className="container-page py-16 text-center">
           <h2 className="font-display text-3xl font-bold">{t("Prêt à envoyer vos biens ?")}</h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-blue-100">
-            {t("Demandez un ramassage en quelques clics et suivez votre envoi jusqu'à destination.")}
+            {t("Contact NCKL for Cameroon, Germany and Europe shipments, shopping assistance, drop-off dates and accepted-item checks.")}
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link href="/demande" className="btn-primary !px-7 !py-3.5 text-base">

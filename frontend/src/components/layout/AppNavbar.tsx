@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, Package } from "lucide-react";
+import { Menu, Plane } from "lucide-react";
 import NavLink from "@/components/layout/NavLink";
 import UserDropdown from "@/components/layout/UserDropdown";
 import MobileNavDrawer from "@/components/layout/MobileNavDrawer";
@@ -24,11 +24,14 @@ export default function AppNavbar() {
     <>
       <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
         <div className="container-page flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-2 font-display text-xl font-bold text-brand-blue">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-blue text-white">
-            <Package className="h-5 w-5 text-brand-gold" />
+        <Link href="/" className="flex items-center gap-2 font-display text-xl font-black text-brand-navy" aria-label="NCKL Logistics Services">
+          <span className="flex h-10 w-10 items-center justify-center rounded-md bg-brand-navy text-white">
+            <Plane className="h-6 w-6 text-brand-red" />
           </span>
-          <span>{COMPANY_SHORT_NAME}</span>
+          <span className="leading-none">
+            <span className="block bg-gradient-to-b from-brand-navy to-gray-500 bg-clip-text text-2xl text-transparent">{COMPANY_SHORT_NAME}</span>
+            <span className="block text-[10px] font-bold uppercase text-brand-red">Logistics Services</span>
+          </span>
         </Link>
 
         {/* Desktop nav */}

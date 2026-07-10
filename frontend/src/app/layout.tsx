@@ -17,8 +17,8 @@ const inter = Inter({ subsets: ["latin"], display: "swap" });
 export function generateMetadata(): Metadata {
   const { t } = getServerTranslation();
   return {
-    title: t("NCKL Logistics Services – Un colis, un sourire…"),
-    description: t("Parcel shipping between Germany, Europe, and Cameroon with shopping assistance and managed drop-off locations."),
+    title: t("NCKL Logistics Services - Your Cargo. Our Commitment."),
+    description: t("NCKL parcel shipping, shopping assistance, drop-off locations and schedules between Cameroon, Germany and Europe."),
     manifest: "/manifest.webmanifest",
   };
 }

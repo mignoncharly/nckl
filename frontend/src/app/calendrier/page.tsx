@@ -45,8 +45,8 @@ export default async function CalendrierPage() {
       <PageHeader
         hero
         icon={<CalendarDays className="h-8 w-8" />}
-        title={t("Calendrier de ramassage")}
-        subtitle={t("Planifiez votre envoi selon nos prochaines tournées de collecte en Europe.")}
+        title={t("NCKL shipment calendar")}
+        subtitle={t("View drop-off deadlines, departure dates, estimated arrivals and NCKL drop-off locations.")}
         actions={
           <Link href="/demande" className="btn-primary !px-6 !py-3">
             {t("Je veux être contacté")}
@@ -117,12 +117,12 @@ export default async function CalendrierPage() {
             )}
 
             <section>
-              <h2 className="mb-4 text-xl font-bold text-gray-900">{t("Tournées de ramassage")}</h2>
+              <h2 className="mb-4 text-xl font-bold text-gray-900">{t("Published pickup schedules")}</h2>
               {schedules.length === 0 ? (
                 <EmptyState
                   icon={<CalendarDays className="h-7 w-7" />}
                   title={t("Aucune tournée programmée")}
-                  description={t("Aucune date de ramassage n'est publiée pour le moment. Faites une demande et nous vous contacterons.")}
+                  description={t("No NCKL schedule is published for the moment. Send a request or contact NCKL on WhatsApp.")}
                   action={
                     <Link href="/demande" className="btn-primary">
                       {t("Faire une demande")}

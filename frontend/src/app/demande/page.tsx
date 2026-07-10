@@ -231,7 +231,7 @@ export default function DemandePage() {
             </legend>
             <div className="grid gap-4 sm:grid-cols-2">
               <FormField label={t("Ville de ramassage")} htmlFor="pickup_city" required error={errors.pickup_city?.message}>
-                <input id="pickup_city" {...register("pickup_city")} placeholder={t("ex: Frankfurt, Strasbourg…")} className={`input ${errors.pickup_city ? "input-error" : ""}`} />
+                <input id="pickup_city" {...register("pickup_city")} placeholder={t("ex: Bamenda, Douala, Berlin")} className={`input ${errors.pickup_city ? "input-error" : ""}`} />
               </FormField>
               <FormField label={t("Destination")} htmlFor="destination_city_id" required error={errors.destination_city_id?.message}>
                 <select id="destination_city_id" {...register("destination_city_id")} className={`input ${errors.destination_city_id ? "input-error" : ""}`}>

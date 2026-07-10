@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { Phone, Mail, MapPin, Truck, Send } from "lucide-react";
 import { createContactSchema, type ContactFormData } from "@/lib/validators";
 import { api, parseApiError } from "@/lib/api";
-import { PICKUP_CITIES, DELIVERY_CITIES, WHATSAPP_NUMBER, SUPPORT_EMAIL } from "@/lib/constants";
+import { WHATSAPP_NUMBER, SUPPORT_EMAIL, NCKL_LOCATIONS } from "@/lib/constants";
 import PageHeader from "@/components/ui/PageHeader";
 import FormField from "@/components/ui/FormField";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
@@ -75,17 +75,26 @@ export default function ContactPage() {
           </div>
 
           <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-card">
-            <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-gray-700">
-              <MapPin className="h-4 w-4 text-brand-gold" /> {t("Zones de ramassage en Europe")}
+            <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-gray-700">
+              <MapPin className="h-4 w-4 text-brand-gold" /> {t("NCKL drop-off and contact locations")}
             </h2>
-            <p className="text-sm leading-relaxed text-gray-600">{PICKUP_CITIES.join(" · ")}</p>
+            <div className="space-y-3">
+              {NCKL_LOCATIONS.map((location) => (
+                <div key={location.city} className="border-b border-gray-100 pb-3 last:border-0 last:pb-0">
+                  <p className="font-semibold text-gray-900">{location.city}</p>
+                  <p className="text-sm text-gray-600">{location.label}</p>
+                  <p className="text-sm font-medium text-brand-blue">{location.contact}</p>
+                  <p className="text-xs text-gray-500">{location.hours}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-card">
             <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-gray-700">
-              <Truck className="h-4 w-4 text-brand-gold" /> {t("Destinations au Cameroun")}
+              <Truck className="h-4 w-4 text-brand-gold" /> {t("Confirmed route coverage")}
             </h2>
-            <p className="text-sm text-gray-600">{DELIVERY_CITIES.join(" · ")}</p>
+            <p className="text-sm text-gray-600">{t("Germany/Europe to Cameroon and Cameroon to Germany/Europe")}</p>
           </div>
 
           <WhatsAppCTA className="w-full" />

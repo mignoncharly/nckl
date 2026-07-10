@@ -27,8 +27,8 @@ export default async function ServicesPage() {
       <PageHeader
         hero
         icon={<Package className="h-8 w-8" />}
-        title={t("Nos services de transport")}
-        subtitle={t("Du colis au véhicule chargé, NCKL Logistics Services achemine vos biens d'Europe vers le Cameroun.")}
+        title={t("NCKL logistics services")}
+        subtitle={t("Confirmed services from the NCKL flyers: parcel shipping, shopping assistance, travel-agency pickup and Europe shopping delivery.")}
         actions={
           <Link href="/demande" className="btn-primary !px-6 !py-3">
             {t("cta.request")}
@@ -63,7 +63,7 @@ export default async function ServicesPage() {
             <div className="mt-10 flex items-start gap-3 rounded-2xl border border-brand-gold/30 bg-brand-gold/5 p-5 text-sm text-gray-700">
               <Info className="mt-0.5 h-5 w-5 shrink-0 text-brand-gold" />
               <p>
-                {t("Le prix final est confirmé par NCKL après réception de votre demande et vérification des informations (volume, poids, destination).")}
+                {t("NCKL confirms the final price after checking route, item category, weight, handling needs and destination.")}
               </p>
             </div>
           </>

@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Package, MapPin, Mail, Truck } from "lucide-react";
-import { PICKUP_CITIES, DELIVERY_CITIES, COMPANY_NAME, SUPPORT_EMAIL } from "@/lib/constants";
+import { Plane, MapPin, Mail, Truck } from "lucide-react";
+import { PICKUP_CITIES, DELIVERY_CITIES, COMPANY_NAME, COMPANY_SLOGAN, SUPPORT_EMAIL, TIKTOK_HANDLE } from "@/lib/constants";
 import WhatsAppCTA from "@/components/public/WhatsAppCTA";
 import { useTranslation } from "@/lib/i18n";
 
@@ -27,13 +27,16 @@ export default function Footer() {
       <div className="container-page grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-12">
         {/* Brand */}
         <div className="lg:col-span-4">
-          <div className="flex items-center gap-2 font-display text-xl font-bold text-white">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10">
-              <Package className="h-5 w-5 text-brand-gold" />
+          <div className="flex items-center gap-3 font-display text-xl font-black text-white">
+            <span className="flex h-10 w-10 items-center justify-center rounded-md bg-white text-brand-navy">
+              <Plane className="h-6 w-6 text-brand-red" />
             </span>
-            {COMPANY_NAME}
+            <span>
+              <span className="block">{COMPANY_NAME}</span>
+              <span className="block text-xs uppercase text-brand-gold">{TIKTOK_HANDLE}</span>
+            </span>
           </div>
-          <p className="mt-3 font-display text-brand-gold">{t("footer.tagline")}</p>
+          <p className="mt-3 font-display text-brand-gold">{COMPANY_SLOGAN}</p>
           <p className="mt-2 max-w-xs text-sm text-navy-200">{t("footer.intro")}</p>
           <div className="mt-5">
             <WhatsAppCTA className="!px-4 !py-2.5" />

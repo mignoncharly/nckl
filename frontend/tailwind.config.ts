@@ -10,13 +10,13 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          red: "#C62828",
-          gold: "#F9A825",
-          blue: "#0D47A1",
-          navy: "#0A2540",
-          dark: "#1A1A1A",
+          red: "#D71920",
+          gold: "#F6C441",
+          blue: "#102E68",
+          navy: "#07152D",
+          dark: "#111827",
           white: "#FFFFFF",
-          light: "#F5F5F5",
+          light: "#F3F6FA",
         },
         // Tonal navy scale for surfaces, gradients and depth.
         navy: {
@@ -27,9 +27,9 @@ const config: Config = {
           400: "#4c79c9",
           500: "#2d5cae",
           600: "#1f478c",
-          700: "#173a73",
-          800: "#0f2a57",
-          900: "#0a2540",
+          700: "#102E68",
+          800: "#0B1F45",
+          900: "#07152D",
         },
       },
       fontFamily: {

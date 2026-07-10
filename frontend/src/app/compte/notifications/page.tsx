@@ -113,7 +113,7 @@ export default function CustomerNotificationsPage() {
                         id="pref-regions"
                         value={pref.regions}
                         onChange={(e) => setPref({ ...pref, regions: e.target.value })}
-                        placeholder={t("ex: Frankfurt, Strasbourg")}
+                        placeholder={t("ex: Bamenda, Douala, Berlin")}
                         className="input"
                       />
                     </FormField>

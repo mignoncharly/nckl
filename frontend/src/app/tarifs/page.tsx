@@ -34,8 +34,8 @@ export default async function TarifsPage() {
       <PageHeader
         hero
         icon={<Tag className="h-8 w-8" />}
-        title={t("Tarifs indicatifs")}
-        subtitle={t("Une idée claire des prix avant de nous contacter. Le prix final est confirmé après vérification de votre demande.")}
+        title={t("NCKL quote on request")}
+        subtitle={t("No confirmed public prices were supplied in the NCKL materials. Request a quote by route, item category and weight.")}
         actions={
           <Link href="/demande" className="btn-primary !px-6 !py-3">
             {t("Obtenir une estimation")}
@@ -47,7 +47,7 @@ export default async function TarifsPage() {
         <div className="mb-8 flex items-start gap-3 rounded-2xl border border-brand-gold/30 bg-brand-gold/5 p-5 text-sm text-gray-700">
           <Info className="mt-0.5 h-5 w-5 shrink-0 text-brand-gold" />
           <p>
-            {t("Les prix affichés sont indicatifs. Le prix final est confirmé après vérification de votre demande.")}
+            {t("No confirmed NCKL price list was supplied. Any prices published by admins are reviewed before confirmation.")}
           </p>
         </div>
 
@@ -57,7 +57,7 @@ export default async function TarifsPage() {
           <EmptyState
             icon={<Tag className="h-7 w-7" />}
             title={t("Aucun tarif publié")}
-            description={t("Contactez-nous pour obtenir un devis personnalisé pour votre envoi.")}
+            description={t("Contact NCKL on WhatsApp or submit a request to confirm the price for your route and items.")}
             action={<WhatsAppCTA />}
           />
         ) : (
